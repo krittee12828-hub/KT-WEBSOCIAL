@@ -610,8 +610,8 @@ body.adm-open{overflow:hidden}
 .kc-badge{position:absolute;right:1.1rem;top:1.1rem;background:var(--c);color:#fff;font:700 .72rem var(--body);padding:.2rem .55rem;border-radius:999px;box-shadow:0 2px 0 rgba(0,0,0,.25),0 6px 12px -4px rgba(0,0,0,.4);letter-spacing:.02em}
 .kc-b{padding:.8rem .9rem .95rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
 .kc-b h3{font-size:1.02rem;line-height:1.4}
-.kv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1.4rem;align-items:start}
-@media (max-width:900px){.kv{grid-template-columns:minmax(0,1fr)}}
+.kvw{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1.4rem;align-items:start}
+@media (max-width:900px){.kvw{grid-template-columns:minmax(0,1fr)}}
 .kv-main{background:color-mix(in oklab,var(--c) 10%,var(--surface2));padding:.8rem;border-radius:14px}
 .kv-stage{aspect-ratio:16/9;width:100%;background-size:100% 600%;background-repeat:no-repeat;background-color:#fff;border-radius:8px;border:1px solid var(--line);box-shadow:0 14px 30px -14px rgba(0,0,0,.55)}
 .kv-ctl{display:flex;justify-content:center;align-items:center;gap:1rem;margin:.7rem 0 .5rem;font-weight:600}
@@ -628,12 +628,14 @@ body.adm-open{overflow:hidden}
 .kv-dl>div{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
 .kv-dl b{flex:0 0 100%;font-size:.85rem;color:var(--muted)}
 .md.kvm{width:min(1180px,100%)}
-.kv.kv-p{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr)}
-@media (max-width:900px){.kv.kv-p{grid-template-columns:minmax(0,1fr)}}
+.kvw.kv-p{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr)}
+@media (max-width:900px){.kvw.kv-p{grid-template-columns:minmax(0,1fr)}}
 .k-fol{margin:0 0 1rem}
 .adm-f .adm-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
 @media (max-width:700px){.adm-f .adm-two{grid-template-columns:minmax(0,1fr)}}
 .kv-sep{margin:.7rem 0 .25rem;font-size:.82rem;font-weight:700;color:var(--muted,#666);border-top:1px dashed currentColor;padding-top:.6rem;opacity:.85}
+.pay.one{grid-template-columns:minmax(0,1fr)}
+.sp-card:not(:has(.sp-qr)){grid-template-columns:minmax(0,1fr)}
 </style>
 </head>
 <body>
@@ -792,7 +794,7 @@ function defaults(){
    {t:'แจ้งโอนและส่งสลิป',d:'กด “โอนแล้ว แจ้งผู้ขาย” ระบบแจ้งผู้ขายให้ (หรือให้คัดลอกข้อความออเดอร์ส่งเอง) แล้วส่งสลิปการโอนตามช่องทางที่ระบุ'},
    {t:'รับลิงก์ทางอีเมล',d:'ผู้ขายตรวจยอดโอนแล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณกรอกไว้ ถ้าไม่พบให้ดูในกล่องสแปมหรือแจ้งผู้ขายพร้อมรหัสออเดอร์'}
   ],
-  shop:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',bankOn:true,bankName:'กสิกรไทย (KBANK)',bankNo:'1331290854',bankHolder:'',defaultPrice:39,siteUrl:'',salt:DEF_SALT,chk:DEF_CHK,note:'ผู้ขายตรวจสลิปด้วยตัวเอง แล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณแจ้งไว้',notifyOn:true,notifyTo:'krittee12828@gmail.com',notifyUrl:'https://formsubmit.co/ajax/krittee12828@gmail.com'},
+  shop:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',payMode:'both',bankQr:'',bankName:'กสิกรไทย (KBANK)',bankNo:'1331290854',bankHolder:'',defaultPrice:39,siteUrl:'',salt:DEF_SALT,chk:DEF_CHK,note:'ผู้ขายตรวจสลิปด้วยตัวเอง แล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณแจ้งไว้',notifyOn:true,notifyTo:'krittee12828@gmail.com',notifyUrl:'https://formsubmit.co/ajax/krittee12828@gmail.com'},
   sx:clone(SX_DEF),
   plans:[
    {id:'pdemo1',on:false,title:'แผนการสอนภูมิศาสตร์ ป.4 หน่วยที่ 1 (ตัวอย่าง)',grade:'ป.4',strand:'geo',term:'เทอม 1',pages:12,note:'ตัวอย่างรายการ แก้ไขชื่อ ราคา และใส่ลิงก์ไฟล์ในศูนย์ผู้ดูแล แล้วเปิดแสดงบนเพจ',img:'',price:{pdf:49,both:79},link:{}},
@@ -805,7 +807,7 @@ function defaults(){
   packs:[
    {id:'kdemo1',on:false,title:'แพ็กเกจเหมา ป.4 (ตัวอย่าง)',note:'ตัวอย่างแพ็กเกจ รวมแผนการสอน (PDF + Word) และสื่อ (PPT) ในราคาพิเศษ กำหนดราคาเองได้',price:99,items:['pdemo1_both','mdemo1_ppt'],img:''},
   ],
-  support:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',bankOn:true,bankName:'กสิกรไทย (KBANK)',bankNo:'1331290854',bankHolder:'',title:'สแกนเพื่อสนับสนุน',text:'ถ้าใบงานนี้ช่วยให้การเรียนการสอนง่ายขึ้น สนับสนุนค่าพัฒนาและดูแลระบบได้ตามกำลัง ทุกยอดช่วยให้มีใบงานชุดใหม่ ๆ ต่อไป',thanks:'ขอบคุณที่ช่วยให้โครงการนี้เดินต่อไปได้',amounts:[20,50,100,200],defaultAmount:0,allowCustom:true,showNumber:true,qrImg:''},
+  support:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',payMode:'both',bankQr:'',bankName:'กสิกรไทย (KBANK)',bankNo:'1331290854',bankHolder:'',title:'สแกนเพื่อสนับสนุน',text:'ถ้าใบงานนี้ช่วยให้การเรียนการสอนง่ายขึ้น สนับสนุนค่าพัฒนาและดูแลระบบได้ตามกำลัง ทุกยอดช่วยให้มีใบงานชุดใหม่ ๆ ต่อไป',thanks:'ขอบคุณที่ช่วยให้โครงการนี้เดินต่อไปได้',amounts:[20,50,100,200],defaultAmount:0,allowCustom:true,showNumber:true,qrImg:''},
   badges:['จัดหมวดตาม 5 สาระ','ครบทุกระดับ ป.1–ม.6','กรองและค้นหาได้ทันที'],
   stages:[
    {name:'ประถมต้น',topics:'ครอบครัว โรงเรียน ชุมชน และสิ่งแวดล้อมใกล้ตัว'},
@@ -953,16 +955,16 @@ const ppDigits=v=>String(v||'').replace(/\D/g,'');
 const ppValid=v=>{const d=ppDigits(v);return /^0\d{9}$/.test(d)||d.length===13;};
 function spPayload(){return ppPayload(S.support.promptpay,ui.spAmt>0?ui.spAmt:0);}
 function spInner(){
- const P=S.support,amt=ui.spAmt,img=safeImg(P.qrImg);
- const chips=img?'':[0].concat(P.amounts).map(v=>{const on=!ui.spOther&&amt===v;return `<button type="button" class="tab" data-act="sp-amt" data-v="${v}" aria-pressed="${on}">${v?baht(v):'ไม่ระบุยอด'}</button>`;}).join('')+(P.allowCustom?`<button type="button" class="tab" data-act="sp-other" aria-pressed="${!!ui.spOther}">ระบุเอง</button>`:'');
- const cu=(!img&&ui.spOther)?`<label class="sp-cu" for="sp-cu">จำนวนเงิน (บาท)<input id="sp-cu" type="number" inputmode="decimal" min="1" max="50000" step="1" value="${amt>0?amt:''}" placeholder="เช่น 59"></label>`:'';
- const qr=img?`<div class="qr-wrap"><img id="sp-img" src="${img}" alt="QR สำหรับสนับสนุนผู้พัฒนา"></div>`:`<div class="qr-wrap"><canvas id="sp-qr" width="300" height="300" role="img" aria-label="QR พร้อมเพย์สำหรับสนับสนุนผู้พัฒนา"></canvas></div><p id="sp-fb" class="err" hidden>สร้าง QR ไม่ได้ ใช้เลขพร้อมเพย์ด้านข้างโอนโดยตรงได้</p>`;
- const rows=(P.showNumber?`<div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(P.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(ppDigits(P.promptpay))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>`:'')+
-  `<div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(P.accountName)}</b></div>`+(P.showNumber?bankRowsHTML(P):'')+(img?'':`<div class="kv-r"><span class="k">ยอดโอน</span><b id="sp-amt-t">${amt>0?baht(amt):'ระบุเองในแอปธนาคาร'}</b></div>`);
- return `<div class="sp-qr">${qr}<p class="sp-cap">สแกนด้วยแอปธนาคารหรือกระเป๋าเงินที่รองรับพร้อมเพย์</p><div class="pbtn"><button class="btn sm" data-act="sp-save">${ic('download',15)} บันทึกรูป QR</button></div></div>
+ const P=S.support,amt=ui.spAmt,eff=payEff(P),img=eff==='bank'?safeImg(P.bankQr):safeImg(P.qrImg),noAmt=!!img||eff==='bank';
+ const chips=noAmt?'':[0].concat(P.amounts).map(v=>{const on=!ui.spOther&&amt===v;return `<button type="button" class="tab" data-act="sp-amt" data-v="${v}" aria-pressed="${on}">${v?baht(v):'ไม่ระบุยอด'}</button>`;}).join('')+(P.allowCustom?`<button type="button" class="tab" data-act="sp-other" aria-pressed="${!!ui.spOther}">ระบุเอง</button>`:'');
+ const cu=(!noAmt&&ui.spOther)?`<label class="sp-cu" for="sp-cu">จำนวนเงิน (บาท)<input id="sp-cu" type="number" inputmode="decimal" min="1" max="50000" step="1" value="${amt>0?amt:''}" placeholder="เช่น 59"></label>`:'';
+ const qr=img?`<div class="qr-wrap"><img id="sp-img" src="${img}" alt="QR สำหรับสนับสนุนผู้พัฒนา"></div>`:eff==='bank'?'':`<div class="qr-wrap"><canvas id="sp-qr" width="300" height="300" role="img" aria-label="QR พร้อมเพย์สำหรับสนับสนุนผู้พัฒนา"></canvas></div><p id="sp-fb" class="err" hidden>สร้าง QR ไม่ได้ ใช้เลขพร้อมเพย์ด้านข้างโอนโดยตรงได้</p>`;
+ const rows=(P.showNumber&&eff!=='bank'?`<div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(P.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(ppDigits(P.promptpay))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>`:'')+
+  (eff==='bank'?'':`<div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(P.accountName)}</b></div>`)+(eff!=='pp'?bankRowsHTML(P,eff==='bank'):'')+(noAmt?'':`<div class="kv-r"><span class="k">ยอดโอน</span><b id="sp-amt-t">${amt>0?baht(amt):'ระบุเองในแอปธนาคาร'}</b></div>`);
+ return `${qr?`<div class="sp-qr">${qr}<p class="sp-cap">${eff==='bank'?'สแกน QR บัญชีธนาคาร แล้วกรอกจำนวนเงินเองในแอป':'สแกนด้วยแอปธนาคารหรือกระเป๋าเงินที่รองรับพร้อมเพย์'}</p><div class="pbtn"><button class="btn sm" data-act="sp-save">${ic('download',15)} บันทึกรูป QR</button></div></div>`:''}
   <div class="sp-b">${E('support.title','h3')}${E('support.text','p')}${chips?`<div class="sp-amts" role="group" aria-label="จำนวนเงิน">${chips}</div>`:''}${cu}<div class="kv">${rows}</div>
    <p class="sp-thanks">${ic('heart',18)}<span>${E('support.thanks','span')}</span></p>
-   <ul class="tips"><li>บนมือถือ: บันทึกรูป QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับตรงกับ ${esc(P.accountName)}</li></ul></div>`;
+   <ul class="tips"><li>บนมือถือ: บันทึกรูป QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับตรงกับ ${esc(eff==='bank'&&String(P.bankHolder||'').trim()?P.bankHolder:P.accountName)}</li></ul></div>`;
 }
 function supportHTML(){
  return `<section id="support" class="sec alt"><div class="wrap">${secHead('sp')}<div class="sp-card" id="sp-wrap">${spInner()}</div></div></section>`;
@@ -999,7 +1001,7 @@ function migrate(){
  if(!S.sections.some(x=>x.id==='support')){const i=S.sections.findIndex(x=>x.id==='contact');S.sections.splice(i<0?S.sections.length:i,0,{id:'support',on:true});}
  addAfter('plans','list');addAfter('media','plans');addAfter('packs','media');addAfter('kits','preview');kitInit();
  ['plans','media','packs'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
- ['shop','support'].forEach(k=>{const o=S[k];if(o){if(o.bankOn===undefined)o.bankOn=true;['bankName','bankNo','bankHolder'].forEach(f=>{if(typeof o[f]!=='string')o[f]='';});}});
+ ['shop','support'].forEach(k=>{const o=S[k];if(o){if(!o.payMode)o.payMode=(o.bankOn===false)?'pp':'both';['bankName','bankNo','bankHolder','bankQr'].forEach(f=>{if(typeof o[f]!=='string')o[f]='';});}});
  if(S.text.howSub==='ชำระเงินผ่านพร้อมเพย์ แล้วรับลิงก์ไฟล์ทางอีเมล')S.text.howSub='ชำระเงินผ่านพร้อมเพย์หรือเลขบัญชีธนาคาร แล้วรับลิงก์ไฟล์ทางอีเมล';
  if(S.how&&S.how[1]&&/สแกน QR พร้อมเพย์ตามยอด/.test(S.how[1].d))S.how[1].d=S.how[1].d.replace('สแกน QR พร้อมเพย์ตามยอด','สแกน QR พร้อมเพย์ หรือโอนเข้าเลขบัญชีธนาคาร ตามยอด');
  if(!S.shop.salt||!S.shop.chk){S.shop.salt=DEF_SALT;S.shop.chk=DEF_CHK;}
@@ -1144,7 +1146,7 @@ function admSupport(){
   <label class="fl" for="a-spn">ชื่อบัญชี<input id="a-spn" type="text" data-bind="support.accountName" value="${esc(P.accountName)}"></label></div>
   <p class="err" id="a-spe" role="alert">${bad?'เลขพร้อมเพย์ต้องเป็นเบอร์โทร 10 หลักที่ขึ้นต้นด้วย 0 หรือเลขบัตร 13 หลัก':''}</p>
   <div class="srow"><label><input type="checkbox" data-bind="support.showNumber"${P.showNumber?' checked':''}> แสดงเลขพร้อมเพย์บนเพจ (ปิดแล้วจะแสดงเฉพาะชื่อบัญชีและ QR)</label></div>
-  ${bankAdmHTML('support',P,'a-sp')}<p class="mini muted">เลขบัญชีธนาคารจะแสดงเมื่อเปิด “แสดงเลขพร้อมเพย์บนเพจ” ไว้ด้วย</p></section>
+  ${bankAdmHTML('support',P,'a-sp')}</section>
  <section class="adm-grp"><h3>จำนวนเงินและ QR</h3><label class="fl" for="a-spa">ปุ่มจำนวนเงินที่ให้เลือก (บาท คั่นด้วยจุลภาค)<input id="a-spa" type="text" data-sp="amts" value="${esc(P.amounts.join(', '))}" placeholder="เช่น 20, 50, 100, 200"></label>
   <div class="srow"><label><input type="checkbox" data-bind="support.allowCustom"${P.allowCustom?' checked':''}> ให้ผู้เข้าชมระบุจำนวนเงินเอง</label></div>
   <label class="fl" for="a-spd">จำนวนเงินที่เลือกไว้ก่อน<select id="a-spd" data-bind="support.defaultAmount"><option value="0"${!P.defaultAmount?' selected':''}>ไม่ระบุยอด (ผู้โอนกรอกเอง)</option>${P.amounts.map(v=>`<option value="${v}"${+P.defaultAmount===v?' selected':''}>${baht(v)}</option>`).join('')}</select></label>
@@ -1153,7 +1155,7 @@ function admSupport(){
  <section class="adm-grp"><h3>ตัวอย่างที่ผู้เข้าชมเห็น</h3><div class="adm-prev"><div class="qr-wrap" id="adm-spq-w">${admSpQr()}</div><div id="adm-spp">${admSpInfo()}</div></div></section>`;
 }
 function admSpQr(){return safeImg(S.support.qrImg)?`<img src="${safeImg(S.support.qrImg)}" alt="QR ที่อัปโหลด">`:'<canvas id="adm-spq" width="300" height="300"></canvas>';}
-function admSpInfo(){const P=S.support;return `<b>${esc(P.accountName)}</b><p class="muted small">${P.showNumber?esc(fmtPhone(P.promptpay)):'(ซ่อนเลขพร้อมเพย์)'}</p>${bankOk(P)&&P.showNumber?`<p class="muted small">${esc(P.bankName)} ${esc(bankFmt(P.bankNo))}</p>`:''}<p class="mini muted" style="margin-top:.5rem">สแกนทดสอบด้วยแอปธนาคารก่อนเผยแพร่ ตรวจว่าชื่อผู้รับตรงกับบัญชีของคุณ</p>`;}
+function admSpInfo(){const P=S.support;return `<b>${esc(P.accountName)}</b><p class="muted small">${P.showNumber?esc(fmtPhone(P.promptpay)):'(ซ่อนเลขพร้อมเพย์)'}</p>${bankOk(P)&&payEff(P)!=='pp'?`<p class="muted small">${esc(P.bankName)} ${esc(bankFmt(P.bankNo))}</p>`:''}<p class="mini muted" style="margin-top:.5rem">สแกนทดสอบด้วยแอปธนาคารก่อนเผยแพร่ ตรวจว่าชื่อผู้รับตรงกับบัญชีของคุณ</p>`;}
 function admSpDraw(){
  const cv=$('#adm-spq');if(cv&&ppValid(S.support.promptpay))drawQR(cv,ppPayload(S.support.promptpay,0));
 }
@@ -1215,6 +1217,7 @@ function act2(a,el,d){
   case 'sp-amt':ui.spOther=false;ui.spAmt=+d.v;spRefresh();break;
   case 'sp-other':ui.spOther=!ui.spOther;if(!ui.spOther)ui.spAmt=0;spRefresh();if(ui.spOther){const c=$('#sp-cu');if(c)c.focus();}break;
   case 'sp-save':spSavePng();break;
+  case 'bank-qr-rm':if(d.k==='shop'||d.k==='support'){S[d.k].bankQr='';touch();render();renderAdm();}break;
   case 'sp-qr-rm':S.support.qrImg='';touch();render();renderAdm();break;
   default:act3(a,el,d);
  }
@@ -1226,7 +1229,7 @@ function act2Submit(e){
  return act3Submit(e);
 }
 function act2Input(t){
- if(t.dataset&&/^support\.(promptpay|accountName|bankOn|bankName|bankNo|bankHolder)$/.test(t.dataset.bind||''))setTimeout(admSpRefresh,0);
+ if(t.dataset&&/^support\.(promptpay|accountName|payMode|bankName|bankNo|bankHolder)$/.test(t.dataset.bind||''))setTimeout(admSpRefresh,0);
  if(t.id==='sp-cu'){const v=Math.round(Number(t.value)*100)/100;ui.spAmt=(v>0&&v<=50000)?v:0;spUpdateAmt();return true;}
  if(t.id==='pw-new'){const s=t.value?Math.max(1,pwScore(t.value)):0,bar=$('#pw-bar'),tx=$('#pw-txt');
   if(bar){bar.style.setProperty('--w',(s*25)+'%');bar.style.setProperty('--c',['var(--accent)','var(--accent)','#E0A100','#4B9B3F','#1F7A4D'][s]);}
@@ -1728,10 +1731,11 @@ document.addEventListener('change',async e=>{
   const f=t.files&&t.files[0];if(!f)return;
   if(!/^image\//.test(f.type)){toast('เลือกไฟล์ภาพเท่านั้น');t.value='';return;}
   try{
-   const k=t.dataset.upload,url=k==='sp-qr'?await readQr(f):await loadImage(f,900);
+   const k=t.dataset.upload,url=(k==='sp-qr'||/^bank-/.test(k))?await readQr(f):await loadImage(f,900);
    if(k==='hero'){S.heroImg=url;touch();render();refreshPanel();}
    else if(k==='sample'){S.samples.push({id:'s'+uid(),kind:'img',mock:'',img:url,cap:'คำอธิบายภาพ'});touch();render();toast('เพิ่มภาพตัวอย่างแล้ว แก้คำอธิบายได้โดยคลิกที่ข้อความ');}
    else if(k==='ws-img'&&ui.wsEdit){ui.wsEdit.img=url;const p=$('#f-prev');if(p)p.innerHTML=prevMini();}
+   else if(/^bank-(shop|support)$/.test(k)){S[k.slice(5)].bankQr=url;touch();render();renderAdm();toast('ใช้รูป QR บัญชีธนาคารที่อัปโหลดแล้ว');}
    else if(k==='sp-qr'){S.support.qrImg=url;touch();render();renderAdm();toast('ใช้รูป QR ที่อัปโหลดแล้ว');}
   }catch(er){toast('อ่านไฟล์ภาพไม่ได้ ลองไฟล์อื่น');}
   t.value='';return;
@@ -1773,20 +1777,30 @@ const baht=n=>'฿'+(Number.isInteger(n)?String(n):n.toFixed(2)).replace(/\B(?=(
 const BANKS=['กสิกรไทย (KBANK)','ไทยพาณิชย์ (SCB)','กรุงเทพ (BBL)','กรุงไทย (KTB)','กรุงศรีอยุธยา (BAY)','ทหารไทยธนชาต (TTB)','ออมสิน (GSB)','ธ.ก.ส. (BAAC)','ซีไอเอ็มบี ไทย (CIMB)','ยูโอบี (UOB)','แลนด์ แอนด์ เฮ้าส์ (LHB)','ทิสโก้ (TISCO)','เกียรตินาคินภัทร (KKP)'];
 function bankDigits(v){return String(v||'').replace(/\D/g,'');}
 function bankFmt(v){const d=bankDigits(v);return d.length===10?d.slice(0,3)+'-'+d.slice(3,4)+'-'+d.slice(4,9)+'-'+d.slice(9):d.length===12?d.slice(0,3)+'-'+d.slice(3,4)+'-'+d.slice(4,11)+'-'+d.slice(11):String(v||'').trim();}
-function bankOk(P){return !!(P&&P.bankOn!==false&&String(P.bankName||'').trim()&&bankDigits(P.bankNo).length>=10);}
-function bankRowsHTML(P){
+function bankOk(P){return !!(P&&String(P.bankName||'').trim()&&bankDigits(P.bankNo).length>=10);}
+function payEff(P){const m=(P&&P.payMode)||'both';return(m!=='pp'&&!bankOk(P))?'pp':m;}
+function payNote(P){const e=payEff(P),pp=`ชำระผ่านพร้อมเพย์ ${esc(fmtPhone(P.promptpay))} · ชื่อบัญชี ${esc(P.accountName)}`,bk=`${esc(P.bankName)} เลขที่ ${esc(bankFmt(P.bankNo))} · ชื่อบัญชี ${esc(String(P.bankHolder||'').trim()||P.accountName)}`;return e==='pp'?pp:e==='bank'?`ชำระโดยโอนเข้าบัญชี ${bk}`:`${pp}<br>หรือโอนเข้า ${bk}`;}
+function bankRowsHTML(P,noSep){
  if(!bankOk(P))return '';
- return `<p class="kv-sep">หรือโอนเข้าบัญชีธนาคาร</p><div class="kv-r"><span class="k">ธนาคาร</span><b>${esc(P.bankName)}</b></div><div class="kv-r"><span class="k">เลขบัญชี</span><b>${esc(bankFmt(P.bankNo))}</b><button class="ib" data-act="copy-text" data-t="${esc(bankDigits(P.bankNo))}" aria-label="คัดลอกเลขบัญชี">${ic('copy',16)}</button></div><div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(String(P.bankHolder||'').trim()||P.accountName)}</b></div>`;
+ return `${noSep?'':'<p class="kv-sep">หรือโอนเข้าบัญชีธนาคาร</p>'}<div class="kv-r"><span class="k">ธนาคาร</span><b>${esc(P.bankName)}</b></div><div class="kv-r"><span class="k">เลขบัญชี</span><b>${esc(bankFmt(P.bankNo))}</b><button class="ib" data-act="copy-text" data-t="${esc(bankDigits(P.bankNo))}" aria-label="คัดลอกเลขบัญชี">${ic('copy',16)}</button></div><div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(String(P.bankHolder||'').trim()||P.accountName)}</b></div>`;
 }
 function bankAdmHTML(path,P,id){
- const bad=P.bankNo&&bankDigits(P.bankNo).length<10;
- return `<div class="lb">บัญชีธนาคาร (โอนด้วยเลขบัญชี)</div>
-  <div class="srow"><label><input type="checkbox" data-bind="${path}.bankOn"${P.bankOn!==false?' checked':''}> แสดงเลขบัญชีธนาคารเป็นอีกช่องทางชำระเงิน (แสดงเมื่อกรอกธนาคารและเลขบัญชีครบ)</label></div>
+ const bad=P.bankNo&&bankDigits(P.bankNo).length<10,m=P.payMode||'both',q=safeImg(P.bankQr);
+ return `<div class="lb">รูปแบบการแสดงช่องทางชำระเงิน</div>
+  <label class="fl" for="${id}-pm">เลือกสิ่งที่จะให้ผู้ซื้อเห็น<select id="${id}-pm" data-bind="${path}.payMode">
+   <option value="both"${m==='both'?' selected':''}>แสดงทั้งพร้อมเพย์ (QR) และเลขบัญชีธนาคาร</option>
+   <option value="pp"${m==='pp'?' selected':''}>แสดงเฉพาะพร้อมเพย์ (QR ล็อกยอดอัตโนมัติ)</option>
+   <option value="bank"${m==='bank'?' selected':''}>แสดงเฉพาะเลขบัญชีธนาคาร (และ QR บัญชี ถ้าอัปโหลดไว้)</option></select></label>
+  ${m!=='pp'&&!bankOk(P)?'<p class="err" role="alert">ยังกรอกธนาคาร/เลขบัญชีไม่ครบ ระบบจะแสดงพร้อมเพย์แทนไปก่อน</p>':''}
+  <div class="lb">บัญชีธนาคาร</div>
   <div class="adm-two"><label class="fl" for="${id}-bn">ธนาคาร<input id="${id}-bn" type="text" list="bank-list" data-bind="${path}.bankName" value="${esc(P.bankName)}" placeholder="เลือกหรือพิมพ์ชื่อธนาคาร"></label>
   <label class="fl" for="${id}-bo">เลขบัญชี<input id="${id}-bo" type="text" inputmode="numeric" data-bind="${path}.bankNo" value="${esc(P.bankNo)}" placeholder="เช่น 123-4-56789-0"></label></div>
   <label class="fl" for="${id}-bh">ชื่อบัญชี (เว้นว่าง = ใช้ชื่อบัญชีพร้อมเพย์)<input id="${id}-bh" type="text" data-bind="${path}.bankHolder" value="${esc(P.bankHolder)}"></label>
   <datalist id="bank-list">${BANKS.map(b=>`<option value="${esc(b)}">`).join('')}</datalist>
-  ${bad?'<p class="err" role="alert">เลขบัญชีต้องมีอย่างน้อย 10 หลัก</p>':''}`;
+  ${bad?'<p class="err" role="alert">เลขบัญชีต้องมีอย่างน้อย 10 หลัก</p>':''}
+  <div class="lb">QR ของบัญชีธนาคาร (ไม่บังคับ)</div><p class="mini muted">อัปโหลดรูป QR ที่สร้างจากแอปธนาคาร (เช่น เมนูรับเงินใน K PLUS) QR แบบนี้ไม่ล็อกยอด ผู้ซื้อต้องกรอกยอดเองในแอป</p>
+  ${q?`<div class="pv-mini" style="width:96px;height:96px;margin:.25rem 0"><img src="${q}" alt="QR บัญชีธนาคารที่อัปโหลด" style="width:100%;height:100%;object-fit:contain"></div>`:''}
+  <div class="pbtn"><label class="btn sm" for="${id}-bq">${ic('upload',16)} เลือกรูป QR บัญชี</label><input id="${id}-bq" type="file" accept="image/*" data-upload="bank-${path}" hidden>${q?`<button class="btn sm ghost" data-act="bank-qr-rm" data-k="${path}">ลบรูป QR บัญชี</button>`:''}</div>`;
 }
 function fmtPhone(v){const p=String(v||'').replace(/\D/g,'');return /^0\d{9}$/.test(p)?p.slice(0,3)+'-'+p.slice(3,6)+'-'+p.slice(6):String(v||'');}
 const isOwned=w=>!!SH.owned[w.id];
@@ -1933,7 +1947,7 @@ function actHTML(w,inModal){
 }
 function howHTML(){
  const steps=S.how.map((s,i)=>`<li class="hw"><span class="hw-n">${i+1}</span>${E('how.'+i+'.t','h3')}${E('how.'+i+'.d','p')}</li>`).join('');
- return `<section id="how" class="sec alt"><div class="wrap">${secHead('how')}<ol class="hws">${steps}</ol><p class="how-note">${ic('lock',18)}<span>ชำระผ่านพร้อมเพย์ ${esc(fmtPhone(S.shop.promptpay))} · ชื่อบัญชี ${esc(S.shop.accountName)}${bankOk(S.shop)?`<br>หรือโอนเข้า ${esc(S.shop.bankName)} เลขที่ ${esc(bankFmt(S.shop.bankNo))}`:''}<br>${E('shop.note','span')}</span></p></div></section>`;
+ return `<section id="how" class="sec alt"><div class="wrap">${secHead('how')}<ol class="hws">${steps}</ol><p class="how-note">${ic('lock',18)}<span>${payNote(S.shop)}<br>${E('shop.note','span')}</span></p></div></section>`;
 }
 
 /* ================= PromptPay QR ================= */
@@ -2040,8 +2054,10 @@ function orderMsg(o){
  if(k)L.push('ติดต่อเพิ่มเติม: '+k);
  L.push('');
  o.items.forEach((x,i)=>L.push((i+1)+'. '+itemLine(x)+' '+baht(x.price)));
- L.push('','ยอดโอน: '+baht(o.total),'โอนเข้าพร้อมเพย์ '+fmtPhone(S.shop.promptpay)+' ชื่อบัญชี '+S.shop.accountName);
- if(bankOk(S.shop))L.push('หรือบัญชีธนาคาร '+S.shop.bankName+' เลขที่ '+bankFmt(S.shop.bankNo)+' ชื่อบัญชี '+(String(S.shop.bankHolder||'').trim()||S.shop.accountName));
+ const eff=payEff(S.shop);
+ L.push('','ยอดโอน: '+baht(o.total));
+ if(eff!=='bank')L.push('โอนเข้าพร้อมเพย์ '+fmtPhone(S.shop.promptpay)+' ชื่อบัญชี '+S.shop.accountName);
+ if(eff!=='pp')L.push((eff==='both'?'หรือ':'โอนเข้า')+'บัญชีธนาคาร '+S.shop.bankName+' เลขที่ '+bankFmt(S.shop.bankNo)+' ชื่อบัญชี '+(String(S.shop.bankHolder||'').trim()||S.shop.accountName));
  if(o.note)L.push('หมายเหตุ: '+o.note);
  L.push('(แนบสลิปการโอนมาด้วย)','','[#'+payload+'#]');
  return L.join('\n');
@@ -2116,16 +2132,18 @@ function renderCo(){
    <p class="err" id="co-err" role="alert"></p>
    <div class="form-a"><button type="button" class="btn" data-act="cart">กลับไปตะกร้า</button><button type="submit" class="btn pri">ไปหน้าชำระเงิน</button></div></form>`;
  }else if(c.step===2){
-  body=`<p class="muted small" style="margin-bottom:.6rem">ส่งลิงก์ไฟล์ไปที่อีเมล: <b>${esc(c.email)}</b></p><div class="pay"><div><div class="qr-wrap"><canvas id="qr" width="300" height="300" role="img" aria-label="QR พร้อมเพย์ ยอด ${baht(total)}"></canvas></div><p id="qr-fb" class="err" hidden></p></div>
+  const eff=payEff(S.shop),bq=safeImg(S.shop.bankQr);
+  const payLeft=(eff!=='bank'?`<div class="qr-wrap"><canvas id="qr" width="300" height="300" role="img" aria-label="QR พร้อมเพย์ ยอด ${baht(total)}"></canvas></div><p id="qr-fb" class="err" hidden></p>`:'')+(eff!=='pp'&&bq?`<div class="qr-wrap" style="margin-top:${eff==='both'?'.75rem':'0'}"><img src="${bq}" alt="QR บัญชีธนาคาร" style="width:100%;height:auto;display:block"></div><p class="muted small">QR บัญชีธนาคาร ไม่ล็อกยอด กรอกยอด ${baht(total)} เองในแอป</p>`:'');
+  body=`<p class="muted small" style="margin-bottom:.6rem">ส่งลิงก์ไฟล์ไปที่อีเมล: <b>${esc(c.email)}</b></p><div class="pay${payLeft?'':' one'}">${payLeft?`<div>${payLeft}</div>`:''}
    <div><p class="muted small">ยอดที่ต้องโอน</p><p class="pay-total">${baht(total)}</p>
     <div class="kv">
-     <div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(S.shop.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(String(S.shop.promptpay).replace(/\D/g,''))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>
-     <div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(S.shop.accountName)}</b></div>
-     ${bankRowsHTML(S.shop)}
+     ${eff!=='bank'?`<div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(S.shop.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(String(S.shop.promptpay).replace(/\D/g,''))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>
+     <div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(S.shop.accountName)}</b></div>`:''}
+     ${eff!=='pp'?bankRowsHTML(S.shop,eff==='bank'):''}
      <div class="kv-r"><span class="k">ยอดโอน</span><b>${baht(total)}</b><button class="ib" data-act="copy-text" data-t="${total.toFixed(2)}" aria-label="คัดลอกยอดโอน">${ic('copy',16)}</button></div>
      <div class="kv-r"><span class="k">รหัสออเดอร์</span><b>${esc(c.code)}</b><button class="ib" data-act="copy-text" data-t="${esc(c.code)}" aria-label="คัดลอกรหัสออเดอร์">${ic('copy',16)}</button></div>
     </div>
-    <ul class="tips"><li>บนมือถือ: แคปหน้าจอ QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับและยอดตรงกับด้านบน</li>${bankOk(S.shop)?'<li>ถ้าไม่สะดวกสแกน โอนเข้าเลขบัญชีธนาคารด้านบนได้ ยอดและรหัสออเดอร์เหมือนกัน</li>':''}<li>โอนให้ตรงยอดทุกบาท เพื่อให้ผู้ขายตรวจสลิปได้เร็ว</li><li>กดปุ่ม “โอนแล้ว แจ้งผู้ขาย” หลังโอนเสร็จเท่านั้น</li></ul>
+    <ul class="tips"><li>${eff==='bank'?'โอนตามเลขบัญชีด้านบน (กดปุ่มคัดลอกเลขบัญชีได้)':'บนมือถือ: แคปหน้าจอ QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป'}</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับและยอดตรงกับด้านบน</li>${eff==='both'?'<li>ถ้าไม่สะดวกสแกน โอนเข้าเลขบัญชีธนาคารด้านบนได้ ยอดและรหัสออเดอร์เหมือนกัน</li>':''}<li>โอนให้ตรงยอดทุกบาท เพื่อให้ผู้ขายตรวจสลิปได้เร็ว</li><li>กดปุ่ม “โอนแล้ว แจ้งผู้ขาย” หลังโอนเสร็จเท่านั้น</li></ul>
    </div></div>
    <div class="form-a" style="margin-top:1.25rem"><button class="btn" data-act="co-back">ย้อนกลับ</button><button class="btn pri" data-act="co-next">โอนแล้ว แจ้งผู้ขาย</button></div>`;
  }else{
@@ -2140,7 +2158,7 @@ function renderCo(){
    <div class="form-a" style="margin-top:1rem"><button class="btn pri" data-act="close-modal">เสร็จสิ้น</button></div>`;
  }
  openModal(`${xBtn}<h2 class="md-h">สั่งซื้อและรับลิงก์ไฟล์</h2><ol class="co-steps">${stepper}</ol>${body}`,'md2');
- if(c.step===2){
+ if(c.step===2&&$('#qr')){
   const ok=drawQR($('#qr'),ppPayload(S.shop.promptpay,total));
   if(!ok){$('#qr').hidden=true;const f=$('#qr-fb');f.hidden=false;f.textContent='สร้าง QR ไม่สำเร็จ โอนเข้าพร้อมเพย์หรือเลขบัญชีตามยอดด้านขวาแทน';}
  }
@@ -2611,7 +2629,7 @@ function kitViewHTML(){
   `<div class="kv-plan"><div class="kv-pp" role="img" aria-label="แผนการสอน หน้า 1" style="${kitPlanImg(k,0)}"></div><div class="kv-pp" role="img" aria-label="แผนการสอน หน้า 2" style="${kitPlanImg(k,1)}"></div></div>`;
  const nav=sib.length>1?`<div class="sxv-nav"><button class="ib" data-act="k-step" data-d="-1" aria-label="ชุดก่อนหน้า">${ic('arrow',16).replace('<svg','<svg style="transform:scaleX(-1)"')}</button><span>${pos+1}/${sib.length}</span><button class="ib" data-act="k-step" data-d="1" aria-label="ชุดถัดไป">${ic('arrow',16)}</button></div>`:'';
  const dls=allow?`<div class="kv-dl"><div><b>สไลด์</b>${kitLink(k,'sx','PowerPoint (แก้ไขได้)','sm pri')}${kitLink(k,'sp','PDF','sm')}</div><div><b>แผนการสอน</b>${kitLink(k,'pp','PDF','sm pri')}${kitLink(k,'pd','Word','sm')}</div></div>`:'<p class="mini muted">ผู้ดูแลปิดการดาวน์โหลดตัวอย่างไว้ ดูภาพตัวอย่างได้ตามปกติ</p>';
- return `${xBtn}<div class="kv ${slides?'kv-s':'kv-p'}" style="--c:${esc(s.color)}">
+ return `${xBtn}<div class="kvw ${slides?'kv-s':'kv-p'}" style="--c:${esc(s.color)}">
   <div class="kv-main">${main}</div>
   <div class="kv-side"><div class="tags"><span class="tag solid">${esc(k.grade)}</span><span class="tag">${esc(s.short)}</span></div>
    <h2 class="md-h" style="margin:0;padding-right:2.5rem">${esc(kitT(k))}</h2>${seg}
