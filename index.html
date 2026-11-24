@@ -633,6 +633,7 @@ body.adm-open{overflow:hidden}
 .k-fol{margin:0 0 1rem}
 .adm-f .adm-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
 @media (max-width:700px){.adm-f .adm-two{grid-template-columns:minmax(0,1fr)}}
+.kv-sep{margin:.7rem 0 .25rem;font-size:.82rem;font-weight:700;color:var(--muted,#666);border-top:1px dashed currentColor;padding-top:.6rem;opacity:.85}
 </style>
 </head>
 <body>
@@ -775,7 +776,7 @@ function defaults(){
    reviewsTitle:'เสียงตอบรับ',reviewsSub:'ความคิดเห็นจากครู ผู้ปกครอง และนักเรียน',
    contactTitle:'สนใจใบงานชุดไหน ทักมาคุยกันได้',contactSub:'สอบถามรายละเอียด ขอไฟล์ หรือแนะนำหัวข้อที่อยากให้เพิ่ม',
    footSlogan:'ใบงานสังคมศึกษา สำหรับครูและนักเรียนทุกระดับชั้น',footCopy:'© 2026 SOCIAL.ATLAS · สงวนลิขสิทธิ์',
-   navHow:'วิธีสั่งซื้อ',howTitle:'วิธีสั่งซื้อและรับไฟล์',howSub:'ชำระเงินผ่านพร้อมเพย์ แล้วรับลิงก์ไฟล์ทางอีเมล',navPlans:'แผนการสอน',navMedia:'สื่อการสอน',navPacks:'แพ็กเกจ',plansTitle:'แผนการสอน',plansSub:'แผนการสอนพร้อมใช้ เลือกรับเป็น PDF อย่างเดียว หรือ PDF พร้อมไฟล์ Word ไว้แก้ไขเอง',mediaTitle:'สื่อการสอน',mediaSub:'สื่อประกอบการสอนพร้อมใช้ เลือกรับเป็นลิงก์ Canva ไฟล์ PowerPoint หรือ PDF ตามที่ต้องการ',packsTitle:'แพ็กเกจเหมา',packsSub:'รวมหลายรายการในราคาพิเศษ ซื้อครั้งเดียวได้ลิงก์ครบทุกไฟล์ในแพ็กเกจ'
+   navHow:'วิธีสั่งซื้อ',howTitle:'วิธีสั่งซื้อและรับไฟล์',howSub:'ชำระเงินผ่านพร้อมเพย์หรือเลขบัญชีธนาคาร แล้วรับลิงก์ไฟล์ทางอีเมล',navPlans:'แผนการสอน',navMedia:'สื่อการสอน',navPacks:'แพ็กเกจ',plansTitle:'แผนการสอน',plansSub:'แผนการสอนพร้อมใช้ เลือกรับเป็น PDF อย่างเดียว หรือ PDF พร้อมไฟล์ Word ไว้แก้ไขเอง',mediaTitle:'สื่อการสอน',mediaSub:'สื่อประกอบการสอนพร้อมใช้ เลือกรับเป็นลิงก์ Canva ไฟล์ PowerPoint หรือ PDF ตามที่ต้องการ',packsTitle:'แพ็กเกจเหมา',packsSub:'รวมหลายรายการในราคาพิเศษ ซื้อครั้งเดียวได้ลิงก์ครบทุกไฟล์ในแพ็กเกจ'
   },
   uses:[
    {t:'ก่อนเรียน',d:'ปูพื้นความรู้และชวนคิดก่อนเข้าเนื้อหา'},
@@ -787,11 +788,11 @@ function defaults(){
   ],
   how:[
    {t:'เลือกสินค้า',d:'เลือกใบงาน แผนการสอน (PDF หรือ PDF + Word) สื่อการสอน หรือแพ็กเกจเหมา ใส่ตะกร้าได้หลายรายการในครั้งเดียว'},
-   {t:'กรอกอีเมลและสแกนชำระเงิน',d:'ใส่อีเมลสำหรับรับลิงก์ไฟล์ (จำเป็น) แล้วสแกน QR พร้อมเพย์ตามยอดที่ระบบคำนวณให้ โอนให้ตรงทุกบาท'},
+   {t:'กรอกอีเมลและสแกนชำระเงิน',d:'ใส่อีเมลสำหรับรับลิงก์ไฟล์ (จำเป็น) แล้วสแกน QR พร้อมเพย์ หรือโอนเข้าเลขบัญชีธนาคาร ตามยอดที่ระบบคำนวณให้ โอนให้ตรงทุกบาท'},
    {t:'แจ้งโอนและส่งสลิป',d:'กด “โอนแล้ว แจ้งผู้ขาย” ระบบแจ้งผู้ขายให้ (หรือให้คัดลอกข้อความออเดอร์ส่งเอง) แล้วส่งสลิปการโอนตามช่องทางที่ระบุ'},
    {t:'รับลิงก์ทางอีเมล',d:'ผู้ขายตรวจยอดโอนแล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณกรอกไว้ ถ้าไม่พบให้ดูในกล่องสแปมหรือแจ้งผู้ขายพร้อมรหัสออเดอร์'}
   ],
-  shop:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',defaultPrice:39,siteUrl:'',salt:DEF_SALT,chk:DEF_CHK,note:'ผู้ขายตรวจสลิปด้วยตัวเอง แล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณแจ้งไว้',notifyOn:true,notifyTo:'krittee12828@gmail.com',notifyUrl:'https://formsubmit.co/ajax/krittee12828@gmail.com'},
+  shop:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',bankOn:true,bankName:'',bankNo:'',bankHolder:'',defaultPrice:39,siteUrl:'',salt:DEF_SALT,chk:DEF_CHK,note:'ผู้ขายตรวจสลิปด้วยตัวเอง แล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณแจ้งไว้',notifyOn:true,notifyTo:'krittee12828@gmail.com',notifyUrl:'https://formsubmit.co/ajax/krittee12828@gmail.com'},
   sx:clone(SX_DEF),
   plans:[
    {id:'pdemo1',on:false,title:'แผนการสอนภูมิศาสตร์ ป.4 หน่วยที่ 1 (ตัวอย่าง)',grade:'ป.4',strand:'geo',term:'เทอม 1',pages:12,note:'ตัวอย่างรายการ แก้ไขชื่อ ราคา และใส่ลิงก์ไฟล์ในศูนย์ผู้ดูแล แล้วเปิดแสดงบนเพจ',img:'',price:{pdf:49,both:79},link:{}},
@@ -804,7 +805,7 @@ function defaults(){
   packs:[
    {id:'kdemo1',on:false,title:'แพ็กเกจเหมา ป.4 (ตัวอย่าง)',note:'ตัวอย่างแพ็กเกจ รวมแผนการสอน (PDF + Word) และสื่อ (PPT) ในราคาพิเศษ กำหนดราคาเองได้',price:99,items:['pdemo1_both','mdemo1_ppt'],img:''},
   ],
-  support:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',title:'สแกนเพื่อสนับสนุน',text:'ถ้าใบงานนี้ช่วยให้การเรียนการสอนง่ายขึ้น สนับสนุนค่าพัฒนาและดูแลระบบได้ตามกำลัง ทุกยอดช่วยให้มีใบงานชุดใหม่ ๆ ต่อไป',thanks:'ขอบคุณที่ช่วยให้โครงการนี้เดินต่อไปได้',amounts:[20,50,100,200],defaultAmount:0,allowCustom:true,showNumber:true,qrImg:''},
+  support:{enabled:true,promptpay:'0840958691',accountName:'กฤตธี โอบอ้อม',bankOn:true,bankName:'',bankNo:'',bankHolder:'',title:'สแกนเพื่อสนับสนุน',text:'ถ้าใบงานนี้ช่วยให้การเรียนการสอนง่ายขึ้น สนับสนุนค่าพัฒนาและดูแลระบบได้ตามกำลัง ทุกยอดช่วยให้มีใบงานชุดใหม่ ๆ ต่อไป',thanks:'ขอบคุณที่ช่วยให้โครงการนี้เดินต่อไปได้',amounts:[20,50,100,200],defaultAmount:0,allowCustom:true,showNumber:true,qrImg:''},
   badges:['จัดหมวดตาม 5 สาระ','ครบทุกระดับ ป.1–ม.6','กรองและค้นหาได้ทันที'],
   stages:[
    {name:'ประถมต้น',topics:'ครอบครัว โรงเรียน ชุมชน และสิ่งแวดล้อมใกล้ตัว'},
@@ -957,7 +958,7 @@ function spInner(){
  const cu=(!img&&ui.spOther)?`<label class="sp-cu" for="sp-cu">จำนวนเงิน (บาท)<input id="sp-cu" type="number" inputmode="decimal" min="1" max="50000" step="1" value="${amt>0?amt:''}" placeholder="เช่น 59"></label>`:'';
  const qr=img?`<div class="qr-wrap"><img id="sp-img" src="${img}" alt="QR สำหรับสนับสนุนผู้พัฒนา"></div>`:`<div class="qr-wrap"><canvas id="sp-qr" width="300" height="300" role="img" aria-label="QR พร้อมเพย์สำหรับสนับสนุนผู้พัฒนา"></canvas></div><p id="sp-fb" class="err" hidden>สร้าง QR ไม่ได้ ใช้เลขพร้อมเพย์ด้านข้างโอนโดยตรงได้</p>`;
  const rows=(P.showNumber?`<div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(P.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(ppDigits(P.promptpay))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>`:'')+
-  `<div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(P.accountName)}</b></div>`+(img?'':`<div class="kv-r"><span class="k">ยอดโอน</span><b id="sp-amt-t">${amt>0?baht(amt):'ระบุเองในแอปธนาคาร'}</b></div>`);
+  `<div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(P.accountName)}</b></div>`+(P.showNumber?bankRowsHTML(P):'')+(img?'':`<div class="kv-r"><span class="k">ยอดโอน</span><b id="sp-amt-t">${amt>0?baht(amt):'ระบุเองในแอปธนาคาร'}</b></div>`);
  return `<div class="sp-qr">${qr}<p class="sp-cap">สแกนด้วยแอปธนาคารหรือกระเป๋าเงินที่รองรับพร้อมเพย์</p><div class="pbtn"><button class="btn sm" data-act="sp-save">${ic('download',15)} บันทึกรูป QR</button></div></div>
   <div class="sp-b">${E('support.title','h3')}${E('support.text','p')}${chips?`<div class="sp-amts" role="group" aria-label="จำนวนเงิน">${chips}</div>`:''}${cu}<div class="kv">${rows}</div>
    <p class="sp-thanks">${ic('heart',18)}<span>${E('support.thanks','span')}</span></p>
@@ -991,13 +992,16 @@ function spSavePng(){
  catch(e){toast('บันทึกรูปไม่ได้ ลองแคปหน้าจอแทน');}
 }
 
-const HOW_V2=[{"t":"เลือกสินค้า","d":"เลือกใบงาน แผนการสอน (PDF หรือ PDF + Word) สื่อการสอน หรือแพ็กเกจเหมา ใส่ตะกร้าได้หลายรายการในครั้งเดียว"},{"t":"กรอกอีเมลและสแกนชำระเงิน","d":"ใส่อีเมลสำหรับรับลิงก์ไฟล์ (จำเป็น) แล้วสแกน QR พร้อมเพย์ตามยอดที่ระบบคำนวณให้ โอนให้ตรงทุกบาท"},{"t":"แจ้งโอนและส่งสลิป","d":"กด “โอนแล้ว แจ้งผู้ขาย” ระบบแจ้งผู้ขายให้ (หรือให้คัดลอกข้อความออเดอร์ส่งเอง) แล้วส่งสลิปการโอนตามช่องทางที่ระบุ"},{"t":"รับลิงก์ทางอีเมล","d":"ผู้ขายตรวจยอดโอนแล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณกรอกไว้ ถ้าไม่พบให้ดูในกล่องสแปมหรือแจ้งผู้ขายพร้อมรหัสออเดอร์"}];
+const HOW_V2=[{"t":"เลือกสินค้า","d":"เลือกใบงาน แผนการสอน (PDF หรือ PDF + Word) สื่อการสอน หรือแพ็กเกจเหมา ใส่ตะกร้าได้หลายรายการในครั้งเดียว"},{"t":"กรอกอีเมลและสแกนชำระเงิน","d":"ใส่อีเมลสำหรับรับลิงก์ไฟล์ (จำเป็น) แล้วสแกน QR พร้อมเพย์ หรือโอนเข้าเลขบัญชีธนาคาร ตามยอดที่ระบบคำนวณให้ โอนให้ตรงทุกบาท"},{"t":"แจ้งโอนและส่งสลิป","d":"กด “โอนแล้ว แจ้งผู้ขาย” ระบบแจ้งผู้ขายให้ (หรือให้คัดลอกข้อความออเดอร์ส่งเอง) แล้วส่งสลิปการโอนตามช่องทางที่ระบุ"},{"t":"รับลิงก์ทางอีเมล","d":"ผู้ขายตรวจยอดโอนแล้วส่งลิงก์ไฟล์ไปที่อีเมลที่คุณกรอกไว้ ถ้าไม่พบให้ดูในกล่องสแปมหรือแจ้งผู้ขายพร้อมรหัสออเดอร์"}];
 function migrate(){
  const addAfter=(id,after)=>{if(S.sections.some(x=>x.id===id))return false;const i=S.sections.findIndex(x=>x.id===after);S.sections.splice(i<0?0:i+1,0,{id,on:true});return true;};
  if(addAfter('preview','hero')){const sm=S.sections.find(x=>x.id==='samples');if(sm)sm.on=false;}
  if(!S.sections.some(x=>x.id==='support')){const i=S.sections.findIndex(x=>x.id==='contact');S.sections.splice(i<0?S.sections.length:i,0,{id:'support',on:true});}
  addAfter('plans','list');addAfter('media','plans');addAfter('packs','media');addAfter('kits','preview');kitInit();
  ['plans','media','packs'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
+ ['shop','support'].forEach(k=>{const o=S[k];if(o){if(o.bankOn===undefined)o.bankOn=true;['bankName','bankNo','bankHolder'].forEach(f=>{if(typeof o[f]!=='string')o[f]='';});}});
+ if(S.text.howSub==='ชำระเงินผ่านพร้อมเพย์ แล้วรับลิงก์ไฟล์ทางอีเมล')S.text.howSub='ชำระเงินผ่านพร้อมเพย์หรือเลขบัญชีธนาคาร แล้วรับลิงก์ไฟล์ทางอีเมล';
+ if(S.how&&S.how[1]&&/สแกน QR พร้อมเพย์ตามยอด/.test(S.how[1].d))S.how[1].d=S.how[1].d.replace('สแกน QR พร้อมเพย์ตามยอด','สแกน QR พร้อมเพย์ หรือโอนเข้าเลขบัญชีธนาคาร ตามยอด');
  if(!S.shop.salt||!S.shop.chk){S.shop.salt=DEF_SALT;S.shop.chk=DEF_CHK;}
  if(S.how&&S.how.length===4&&S.how[0].t==='เลือกใบงาน'&&S.how[3].t==='รับรหัสและเปิดไฟล์')S.how=clone(HOW_V2);
  if(S.text.howTitle==='วิธีปลดล็อคใบงาน')S.text.howTitle='วิธีสั่งซื้อและรับไฟล์';
@@ -1139,7 +1143,8 @@ function admSupport(){
  <section class="adm-grp"><h3>บัญชีรับเงิน (PromptPay)</h3><div class="adm-two"><label class="fl" for="a-spp">เลขพร้อมเพย์ (เบอร์โทร 10 หลัก หรือเลขบัตร 13 หลัก)<input id="a-spp" type="text" inputmode="numeric" data-bind="support.promptpay" value="${esc(P.promptpay)}"></label>
   <label class="fl" for="a-spn">ชื่อบัญชี<input id="a-spn" type="text" data-bind="support.accountName" value="${esc(P.accountName)}"></label></div>
   <p class="err" id="a-spe" role="alert">${bad?'เลขพร้อมเพย์ต้องเป็นเบอร์โทร 10 หลักที่ขึ้นต้นด้วย 0 หรือเลขบัตร 13 หลัก':''}</p>
-  <div class="srow"><label><input type="checkbox" data-bind="support.showNumber"${P.showNumber?' checked':''}> แสดงเลขพร้อมเพย์บนเพจ (ปิดแล้วจะแสดงเฉพาะชื่อบัญชีและ QR)</label></div></section>
+  <div class="srow"><label><input type="checkbox" data-bind="support.showNumber"${P.showNumber?' checked':''}> แสดงเลขพร้อมเพย์บนเพจ (ปิดแล้วจะแสดงเฉพาะชื่อบัญชีและ QR)</label></div>
+  ${bankAdmHTML('support',P,'a-sp')}<p class="mini muted">เลขบัญชีธนาคารจะแสดงเมื่อเปิด “แสดงเลขพร้อมเพย์บนเพจ” ไว้ด้วย</p></section>
  <section class="adm-grp"><h3>จำนวนเงินและ QR</h3><label class="fl" for="a-spa">ปุ่มจำนวนเงินที่ให้เลือก (บาท คั่นด้วยจุลภาค)<input id="a-spa" type="text" data-sp="amts" value="${esc(P.amounts.join(', '))}" placeholder="เช่น 20, 50, 100, 200"></label>
   <div class="srow"><label><input type="checkbox" data-bind="support.allowCustom"${P.allowCustom?' checked':''}> ให้ผู้เข้าชมระบุจำนวนเงินเอง</label></div>
   <label class="fl" for="a-spd">จำนวนเงินที่เลือกไว้ก่อน<select id="a-spd" data-bind="support.defaultAmount"><option value="0"${!P.defaultAmount?' selected':''}>ไม่ระบุยอด (ผู้โอนกรอกเอง)</option>${P.amounts.map(v=>`<option value="${v}"${+P.defaultAmount===v?' selected':''}>${baht(v)}</option>`).join('')}</select></label>
@@ -1148,7 +1153,7 @@ function admSupport(){
  <section class="adm-grp"><h3>ตัวอย่างที่ผู้เข้าชมเห็น</h3><div class="adm-prev"><div class="qr-wrap" id="adm-spq-w">${admSpQr()}</div><div id="adm-spp">${admSpInfo()}</div></div></section>`;
 }
 function admSpQr(){return safeImg(S.support.qrImg)?`<img src="${safeImg(S.support.qrImg)}" alt="QR ที่อัปโหลด">`:'<canvas id="adm-spq" width="300" height="300"></canvas>';}
-function admSpInfo(){const P=S.support;return `<b>${esc(P.accountName)}</b><p class="muted small">${P.showNumber?esc(fmtPhone(P.promptpay)):'(ซ่อนเลขพร้อมเพย์)'}</p><p class="mini muted" style="margin-top:.5rem">สแกนทดสอบด้วยแอปธนาคารก่อนเผยแพร่ ตรวจว่าชื่อผู้รับตรงกับบัญชีของคุณ</p>`;}
+function admSpInfo(){const P=S.support;return `<b>${esc(P.accountName)}</b><p class="muted small">${P.showNumber?esc(fmtPhone(P.promptpay)):'(ซ่อนเลขพร้อมเพย์)'}</p>${bankOk(P)&&P.showNumber?`<p class="muted small">${esc(P.bankName)} ${esc(bankFmt(P.bankNo))}</p>`:''}<p class="mini muted" style="margin-top:.5rem">สแกนทดสอบด้วยแอปธนาคารก่อนเผยแพร่ ตรวจว่าชื่อผู้รับตรงกับบัญชีของคุณ</p>`;}
 function admSpDraw(){
  const cv=$('#adm-spq');if(cv&&ppValid(S.support.promptpay))drawQR(cv,ppPayload(S.support.promptpay,0));
 }
@@ -1221,7 +1226,7 @@ function act2Submit(e){
  return act3Submit(e);
 }
 function act2Input(t){
- if(t.dataset&&/^support\.(promptpay|accountName)$/.test(t.dataset.bind||''))setTimeout(admSpRefresh,0);
+ if(t.dataset&&/^support\.(promptpay|accountName|bankOn|bankName|bankNo|bankHolder)$/.test(t.dataset.bind||''))setTimeout(admSpRefresh,0);
  if(t.id==='sp-cu'){const v=Math.round(Number(t.value)*100)/100;ui.spAmt=(v>0&&v<=50000)?v:0;spUpdateAmt();return true;}
  if(t.id==='pw-new'){const s=t.value?Math.max(1,pwScore(t.value)):0,bar=$('#pw-bar'),tx=$('#pw-txt');
   if(bar){bar.style.setProperty('--w',(s*25)+'%');bar.style.setProperty('--c',['var(--accent)','var(--accent)','#E0A100','#4B9B3F','#1F7A4D'][s]);}
@@ -1607,7 +1612,7 @@ function panelHTML(){
  const strands=S.strands.map((s,i)=>`<div class="stack"><div class="crow"><input type="color" data-bind="strands.${i}.color" value="${esc(s.color)}" aria-label="สีของ ${esc(s.short)}"><input type="text" data-bind="strands.${i}.short" value="${esc(s.short)}" aria-label="ชื่อสั้น"></div><input type="text" data-bind="strands.${i}.name" value="${esc(s.name)}" aria-label="ชื่อเต็มของสาระ"></div>`).join('');
  const contacts=S.contacts.map((c,i)=>`<div class="stack"><div class="crow"><input type="text" data-bind="contacts.${i}.label" value="${esc(c.label)}" aria-label="ชื่อช่องทาง" placeholder="ชื่อช่องทาง"><button class="ib" data-act="del-contact" data-i="${i}" aria-label="ลบช่องทางนี้">${ic('trash',16)}</button></div><input type="text" data-bind="contacts.${i}.value" value="${esc(c.value)}" aria-label="ข้อความที่แสดง" placeholder="ข้อความที่แสดง"><input type="text" inputmode="url" data-bind="contacts.${i}.url" value="${esc(c.url)}" aria-label="ลิงก์" placeholder="ลิงก์ (ถ้ามี) เช่น https://..."></div>`).join('');
  const adminHTML=`<div class="stack"><p class="mini">✓ เข้าสู่ระบบผู้ดูแลอยู่ รหัสนี้ใช้เข้ารหัสลิงก์ไฟล์ที่ขายด้วย เปลี่ยนรหัสได้ที่ ศูนย์ผู้ดูแล → ความปลอดภัย</p><div class="pbtn"><button class="btn sm" data-act="adm-open" data-t="sec">เปลี่ยนรหัส</button><button class="btn sm ghost" data-act="adm-logout">ออกจากระบบ</button></div></div>`;
- const shopG=`<section class="pg"><h3>ร้านค้าและการชำระเงิน</h3><div class="srow"><label><input type="checkbox" data-bind="shop.enabled"${S.shop.enabled?' checked':''}> เปิดระบบปลดล็อคใบงาน</label></div><label for="s-pp">พร้อมเพย์ (เบอร์โทร 10 หลัก หรือเลขบัตร 13 หลัก)<input id="s-pp" type="text" inputmode="numeric" data-bind="shop.promptpay" value="${esc(S.shop.promptpay)}"></label><label for="s-an">ชื่อบัญชีที่แสดงตอนชำระเงิน<input id="s-an" type="text" data-bind="shop.accountName" value="${esc(S.shop.accountName)}"></label><label for="s-dp">ราคาเริ่มต้นต่อชุด (บาท) ตั้งราคารายชุดได้ในฟอร์มใบงาน<input id="s-dp" type="number" min="0" step="1" data-bind="shop.defaultPrice" value="${esc(S.shop.defaultPrice)}"></label><label for="s-su">ลิงก์เพจนี้ (ใส่ในข้อความตอบกลับถึงผู้ซื้อ)<input id="s-su" type="text" inputmode="url" data-bind="shop.siteUrl" value="${esc(S.shop.siteUrl)}" placeholder="วางลิงก์ที่คุณแชร์ให้ผู้ซื้อ"></label><div class="lb">รหัสแอดมิน (เข้ารหัสลิงก์ไฟล์ที่ขาย)</div>${adminHTML}<div class="pbtn"><button class="btn sm" data-act="orders">${ic('receipt',16)} จัดการออเดอร์</button></div></section>`;
+ const shopG=`<section class="pg"><h3>ร้านค้าและการชำระเงิน</h3><div class="srow"><label><input type="checkbox" data-bind="shop.enabled"${S.shop.enabled?' checked':''}> เปิดระบบปลดล็อคใบงาน</label></div><label for="s-pp">พร้อมเพย์ (เบอร์โทร 10 หลัก หรือเลขบัตร 13 หลัก)<input id="s-pp" type="text" inputmode="numeric" data-bind="shop.promptpay" value="${esc(S.shop.promptpay)}"></label><label for="s-an">ชื่อบัญชีที่แสดงตอนชำระเงิน<input id="s-an" type="text" data-bind="shop.accountName" value="${esc(S.shop.accountName)}"></label>${bankAdmHTML('shop',S.shop,'s-b')}<label for="s-dp">ราคาเริ่มต้นต่อชุด (บาท) ตั้งราคารายชุดได้ในฟอร์มใบงาน<input id="s-dp" type="number" min="0" step="1" data-bind="shop.defaultPrice" value="${esc(S.shop.defaultPrice)}"></label><label for="s-su">ลิงก์เพจนี้ (ใส่ในข้อความตอบกลับถึงผู้ซื้อ)<input id="s-su" type="text" inputmode="url" data-bind="shop.siteUrl" value="${esc(S.shop.siteUrl)}" placeholder="วางลิงก์ที่คุณแชร์ให้ผู้ซื้อ"></label><div class="lb">รหัสแอดมิน (เข้ารหัสลิงก์ไฟล์ที่ขาย)</div>${adminHTML}<div class="pbtn"><button class="btn sm" data-act="orders">${ic('receipt',16)} จัดการออเดอร์</button></div></section>`;
  const gh=GH.get();
  const ghG=!STANDALONE?'':`<section class="pg" id="gh-grp"><h3>บันทึกขึ้น GitHub</h3><p class="mini muted">ใช้โทเค็นแบบ Fine-grained ที่เลือกเฉพาะ repo นี้ และให้สิทธิ์ Contents: Read and write เท่านั้น โทเค็นไม่ถูกเก็บลงในไฟล์เพจ</p><label for="g-repo">Repo (ชื่อผู้ใช้/ชื่อ repo)<input id="g-repo" type="text" value="${esc(gh.repo)}" placeholder="ชื่อผู้ใช้/ชื่อ-repo" autocomplete="off"></label><label for="g-br">Branch<input id="g-br" type="text" value="${esc(gh.branch)}" autocomplete="off"></label><label for="g-path">ชื่อไฟล์ใน repo<input id="g-path" type="text" value="${esc(gh.path)}" autocomplete="off"></label><label for="g-tok">โทเค็น GitHub<input id="g-tok" type="password" autocomplete="off" placeholder="${gh.token?'บันทึกไว้แล้ว (เว้นว่างเพื่อใช้ตัวเดิม)':'github_pat_...'}"></label><div class="srow"><label><input type="checkbox" id="g-rem"${gh.remember?' checked':''}> จำโทเค็นไว้ในเบราว์เซอร์เครื่องนี้</label></div><div class="pbtn"><button class="btn sm" data-act="gh-save">บันทึกการตั้งค่าและทดสอบ</button><button class="btn sm" data-act="dl-html">${ic('save',16)} ดาวน์โหลด index.html</button><button class="btn sm ghost" data-act="adm-logout">ออกจากระบบผู้ดูแล</button></div></section>`;
  return `<div class="pn-h"><h2>ปรับแต่งเพจ</h2><button class="ib" data-act="panel-close" aria-label="ปิดแผงปรับแต่ง">${ic('x',18)}</button></div>
@@ -1764,6 +1769,25 @@ const SH={cart:lsGet('satlas-cart',[]),orders:lsGet('satlas-orders',[]),owned:ls
 const saveSH=k=>lsSet('satlas-'+k,SH[k]);
 const priceOf=w=>{if(!S.shop.enabled)return 0;const p=(w.price==null||w.price==='')?Number(S.shop.defaultPrice):Number(w.price);return isFinite(p)&&p>0?Math.round(p*100)/100:0;};
 const baht=n=>'฿'+(Number.isInteger(n)?String(n):n.toFixed(2)).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+
+const BANKS=['กสิกรไทย (KBANK)','ไทยพาณิชย์ (SCB)','กรุงเทพ (BBL)','กรุงไทย (KTB)','กรุงศรีอยุธยา (BAY)','ทหารไทยธนชาต (TTB)','ออมสิน (GSB)','ธ.ก.ส. (BAAC)','ซีไอเอ็มบี ไทย (CIMB)','ยูโอบี (UOB)','แลนด์ แอนด์ เฮ้าส์ (LHB)','ทิสโก้ (TISCO)','เกียรตินาคินภัทร (KKP)'];
+function bankDigits(v){return String(v||'').replace(/\D/g,'');}
+function bankFmt(v){const d=bankDigits(v);return d.length===10?d.slice(0,3)+'-'+d.slice(3,4)+'-'+d.slice(4,9)+'-'+d.slice(9):d.length===12?d.slice(0,3)+'-'+d.slice(3,4)+'-'+d.slice(4,11)+'-'+d.slice(11):String(v||'').trim();}
+function bankOk(P){return !!(P&&P.bankOn!==false&&String(P.bankName||'').trim()&&bankDigits(P.bankNo).length>=10);}
+function bankRowsHTML(P){
+ if(!bankOk(P))return '';
+ return `<p class="kv-sep">หรือโอนเข้าบัญชีธนาคาร</p><div class="kv-r"><span class="k">ธนาคาร</span><b>${esc(P.bankName)}</b></div><div class="kv-r"><span class="k">เลขบัญชี</span><b>${esc(bankFmt(P.bankNo))}</b><button class="ib" data-act="copy-text" data-t="${esc(bankDigits(P.bankNo))}" aria-label="คัดลอกเลขบัญชี">${ic('copy',16)}</button></div><div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(String(P.bankHolder||'').trim()||P.accountName)}</b></div>`;
+}
+function bankAdmHTML(path,P,id){
+ const bad=P.bankNo&&bankDigits(P.bankNo).length<10;
+ return `<div class="lb">บัญชีธนาคาร (โอนด้วยเลขบัญชี)</div>
+  <div class="srow"><label><input type="checkbox" data-bind="${path}.bankOn"${P.bankOn!==false?' checked':''}> แสดงเลขบัญชีธนาคารเป็นอีกช่องทางชำระเงิน (แสดงเมื่อกรอกธนาคารและเลขบัญชีครบ)</label></div>
+  <div class="adm-two"><label class="fl" for="${id}-bn">ธนาคาร<input id="${id}-bn" type="text" list="bank-list" data-bind="${path}.bankName" value="${esc(P.bankName)}" placeholder="เลือกหรือพิมพ์ชื่อธนาคาร"></label>
+  <label class="fl" for="${id}-bo">เลขบัญชี<input id="${id}-bo" type="text" inputmode="numeric" data-bind="${path}.bankNo" value="${esc(P.bankNo)}" placeholder="เช่น 123-4-56789-0"></label></div>
+  <label class="fl" for="${id}-bh">ชื่อบัญชี (เว้นว่าง = ใช้ชื่อบัญชีพร้อมเพย์)<input id="${id}-bh" type="text" data-bind="${path}.bankHolder" value="${esc(P.bankHolder)}"></label>
+  <datalist id="bank-list">${BANKS.map(b=>`<option value="${esc(b)}">`).join('')}</datalist>
+  ${bad?'<p class="err" role="alert">เลขบัญชีต้องมีอย่างน้อย 10 หลัก</p>':''}`;
+}
 function fmtPhone(v){const p=String(v||'').replace(/\D/g,'');return /^0\d{9}$/.test(p)?p.slice(0,3)+'-'+p.slice(3,6)+'-'+p.slice(6):String(v||'');}
 const isOwned=w=>!!SH.owned[w.id];
 /* ================= v2 · สินค้าหลายประเภท: ใบงาน / แผนการสอน / สื่อการสอน / แพ็กเกจ ================= */
@@ -1909,7 +1933,7 @@ function actHTML(w,inModal){
 }
 function howHTML(){
  const steps=S.how.map((s,i)=>`<li class="hw"><span class="hw-n">${i+1}</span>${E('how.'+i+'.t','h3')}${E('how.'+i+'.d','p')}</li>`).join('');
- return `<section id="how" class="sec alt"><div class="wrap">${secHead('how')}<ol class="hws">${steps}</ol><p class="how-note">${ic('lock',18)}<span>ชำระผ่านพร้อมเพย์ ${esc(fmtPhone(S.shop.promptpay))} · ชื่อบัญชี ${esc(S.shop.accountName)}<br>${E('shop.note','span')}</span></p></div></section>`;
+ return `<section id="how" class="sec alt"><div class="wrap">${secHead('how')}<ol class="hws">${steps}</ol><p class="how-note">${ic('lock',18)}<span>ชำระผ่านพร้อมเพย์ ${esc(fmtPhone(S.shop.promptpay))} · ชื่อบัญชี ${esc(S.shop.accountName)}${bankOk(S.shop)?`<br>หรือโอนเข้า ${esc(S.shop.bankName)} เลขที่ ${esc(bankFmt(S.shop.bankNo))}`:''}<br>${E('shop.note','span')}</span></p></div></section>`;
 }
 
 /* ================= PromptPay QR ================= */
@@ -2017,6 +2041,7 @@ function orderMsg(o){
  L.push('');
  o.items.forEach((x,i)=>L.push((i+1)+'. '+itemLine(x)+' '+baht(x.price)));
  L.push('','ยอดโอน: '+baht(o.total),'โอนเข้าพร้อมเพย์ '+fmtPhone(S.shop.promptpay)+' ชื่อบัญชี '+S.shop.accountName);
+ if(bankOk(S.shop))L.push('หรือบัญชีธนาคาร '+S.shop.bankName+' เลขที่ '+bankFmt(S.shop.bankNo)+' ชื่อบัญชี '+(String(S.shop.bankHolder||'').trim()||S.shop.accountName));
  if(o.note)L.push('หมายเหตุ: '+o.note);
  L.push('(แนบสลิปการโอนมาด้วย)','','[#'+payload+'#]');
  return L.join('\n');
@@ -2096,10 +2121,11 @@ function renderCo(){
     <div class="kv">
      <div class="kv-r"><span class="k">พร้อมเพย์</span><b>${esc(fmtPhone(S.shop.promptpay))}</b><button class="ib" data-act="copy-text" data-t="${esc(String(S.shop.promptpay).replace(/\D/g,''))}" aria-label="คัดลอกเลขพร้อมเพย์">${ic('copy',16)}</button></div>
      <div class="kv-r"><span class="k">ชื่อบัญชี</span><b>${esc(S.shop.accountName)}</b></div>
+     ${bankRowsHTML(S.shop)}
      <div class="kv-r"><span class="k">ยอดโอน</span><b>${baht(total)}</b><button class="ib" data-act="copy-text" data-t="${total.toFixed(2)}" aria-label="คัดลอกยอดโอน">${ic('copy',16)}</button></div>
      <div class="kv-r"><span class="k">รหัสออเดอร์</span><b>${esc(c.code)}</b><button class="ib" data-act="copy-text" data-t="${esc(c.code)}" aria-label="คัดลอกรหัสออเดอร์">${ic('copy',16)}</button></div>
     </div>
-    <ul class="tips"><li>บนมือถือ: แคปหน้าจอ QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับและยอดตรงกับด้านบน</li><li>โอนให้ตรงยอดทุกบาท เพื่อให้ผู้ขายตรวจสลิปได้เร็ว</li><li>กดปุ่ม “โอนแล้ว แจ้งผู้ขาย” หลังโอนเสร็จเท่านั้น</li></ul>
+    <ul class="tips"><li>บนมือถือ: แคปหน้าจอ QR แล้วเปิดแอปธนาคารเลือกสแกนจากรูป</li><li>ก่อนกดยืนยัน ตรวจว่าชื่อผู้รับและยอดตรงกับด้านบน</li>${bankOk(S.shop)?'<li>ถ้าไม่สะดวกสแกน โอนเข้าเลขบัญชีธนาคารด้านบนได้ ยอดและรหัสออเดอร์เหมือนกัน</li>':''}<li>โอนให้ตรงยอดทุกบาท เพื่อให้ผู้ขายตรวจสลิปได้เร็ว</li><li>กดปุ่ม “โอนแล้ว แจ้งผู้ขาย” หลังโอนเสร็จเท่านั้น</li></ul>
    </div></div>
    <div class="form-a" style="margin-top:1.25rem"><button class="btn" data-act="co-back">ย้อนกลับ</button><button class="btn pri" data-act="co-next">โอนแล้ว แจ้งผู้ขาย</button></div>`;
  }else{
@@ -2116,7 +2142,7 @@ function renderCo(){
  openModal(`${xBtn}<h2 class="md-h">สั่งซื้อและรับลิงก์ไฟล์</h2><ol class="co-steps">${stepper}</ol>${body}`,'md2');
  if(c.step===2){
   const ok=drawQR($('#qr'),ppPayload(S.shop.promptpay,total));
-  if(!ok){$('#qr').hidden=true;const f=$('#qr-fb');f.hidden=false;f.textContent='สร้าง QR ไม่สำเร็จ โอนเข้าพร้อมเพย์ตามเลขและยอดด้านขวาแทน';}
+  if(!ok){$('#qr').hidden=true;const f=$('#qr-fb');f.hidden=false;f.textContent='สร้าง QR ไม่สำเร็จ โอนเข้าพร้อมเพย์หรือเลขบัญชีตามยอดด้านขวาแทน';}
  }
  if(c.step===1){const n=$('#c-name');if(n)n.focus();}
 }
@@ -2451,6 +2477,7 @@ function admShop(){
  const H=S.shop,auto=STANDALONE;
  return `<section class="adm-grp"><h3>ระบบปลดล็อคสินค้า</h3><div class="srow"><label><input type="checkbox" data-bind="shop.enabled"${H.enabled?' checked':''}> เปิดระบบขายและตะกร้า</label></div>
   <div class="adm-two"><label class="fl" for="a-shp">พร้อมเพย์สำหรับรับเงิน<input id="a-shp" type="text" inputmode="numeric" data-bind="shop.promptpay" value="${esc(H.promptpay)}"></label><label class="fl" for="a-shn">ชื่อบัญชี<input id="a-shn" type="text" data-bind="shop.accountName" value="${esc(H.accountName)}"></label></div>
+  ${bankAdmHTML('shop',H,'a-sh')}
   <div class="adm-two"><label class="fl" for="a-shd">ราคาเริ่มต้นของใบงานต่อชุด (บาท)<input id="a-shd" type="number" min="0" step="1" data-bind="shop.defaultPrice" value="${esc(H.defaultPrice)}"></label><label class="fl" for="a-shu">ลิงก์เพจ (ใส่ในข้อความถึงผู้ซื้อ)<input id="a-shu" type="text" inputmode="url" data-bind="shop.siteUrl" value="${esc(H.siteUrl)}"></label></div>
   <label class="fl" for="a-shx">ข้อความใต้ขั้นตอนสั่งซื้อ<textarea id="a-shx" rows="2" data-bind="shop.note">${esc(H.note)}</textarea></label></section>
  <section class="adm-grp"><h3>แจ้งเตือนอีเมลเมื่อมีออเดอร์</h3>
