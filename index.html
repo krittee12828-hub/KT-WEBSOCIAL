@@ -630,6 +630,9 @@ body.adm-open{overflow:hidden}
 .md.kvm{width:min(1180px,100%)}
 .kv.kv-p{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr)}
 @media (max-width:900px){.kv.kv-p{grid-template-columns:minmax(0,1fr)}}
+.k-fol{margin:0 0 1rem}
+.adm-f .adm-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem}
+@media (max-width:700px){.adm-f .adm-two{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -993,7 +996,7 @@ function migrate(){
  const addAfter=(id,after)=>{if(S.sections.some(x=>x.id===id))return false;const i=S.sections.findIndex(x=>x.id===after);S.sections.splice(i<0?0:i+1,0,{id,on:true});return true;};
  if(addAfter('preview','hero')){const sm=S.sections.find(x=>x.id==='samples');if(sm)sm.on=false;}
  if(!S.sections.some(x=>x.id==='support')){const i=S.sections.findIndex(x=>x.id==='contact');S.sections.splice(i<0?S.sections.length:i,0,{id:'support',on:true});}
- addAfter('plans','list');addAfter('media','plans');addAfter('packs','media');addAfter('kits','preview');
+ addAfter('plans','list');addAfter('media','plans');addAfter('packs','media');addAfter('kits','preview');kitInit();
  ['plans','media','packs'].forEach(k=>{if(!Array.isArray(S[k]))S[k]=[];});
  if(!S.shop.salt||!S.shop.chk){S.shop.salt=DEF_SALT;S.shop.chk=DEF_CHK;}
  if(S.how&&S.how.length===4&&S.how[0].t==='เลือกใบงาน'&&S.how[3].t==='รับรหัสและเปิดไฟล์')S.how=clone(HOW_V2);
@@ -1090,14 +1093,14 @@ async function doChangePw(){
 }
 
 /* ================= ผู้ดูแลระบบ: ศูนย์ควบคุม ================= */
-const ADM_TABS=[['home','ภาพรวม','bars'],['catalog','สินค้าและลิงก์','link'],['orders','ออเดอร์','receipt'],['shop','ร้านค้าและชำระเงิน','cart'],['sx','ตัวอย่างใบงาน','layers'],['support','สนับสนุนผู้พัฒนา','heart'],['site','ตั้งค่าเว็บไซต์','sliders'],['sec','ความปลอดภัย','key'],['data','ข้อมูลและสำรอง','save']];
+const ADM_TABS=[['home','ภาพรวม','bars'],['catalog','สินค้าและลิงก์','link'],['orders','ออเดอร์','receipt'],['shop','ร้านค้าและชำระเงิน','cart'],['sx','ตัวอย่างใบงาน','layers'],['kits','สไลด์และแผนการสอน','layers'],['support','สนับสนุนผู้พัฒนา','heart'],['site','ตั้งค่าเว็บไซต์','sliders'],['sec','ความปลอดภัย','key'],['data','ข้อมูลและสำรอง','save']];
 function openAdm(tab){ui.admTab=tab||ui.admTab||'home';const was=!$('#adm').hidden;$('#adm').hidden=false;document.body.classList.add('adm-open');const ap=$('#app');if(ap)ap.inert=true;renderAdm();if(!was){const f=$('.adm-nav button[aria-current]');if(f)f.focus();}}
 function closeAdm(){const el=$('#adm');if(!el)return;el.hidden=true;el.innerHTML='';document.body.classList.remove('adm-open');const ap=$('#app');if(ap)ap.inert=false;}
 function renderAdm(){
  const el=$('#adm');if(!el||el.hidden)return;
  const cur=ADM_TABS.find(t=>t[0]===ui.admTab)||ADM_TABS[0],st=el.querySelector('.adm-body'),top=st?st.scrollTop:0;
  const nav=ADM_TABS.map(t=>`<button data-act="adm-tab" data-t="${t[0]}"${t[0]===cur[0]?' aria-current="page"':''}>${ic(t[2],18)} ${t[1]}</button>`).join('');
- const body={home:admHome,catalog:admCatalog,sx:admSx,support:admSupport,shop:admShop,orders:admOrders,site:admSite,sec:admSec,data:admData}[cur[0]]();
+ const body={home:admHome,catalog:admCatalog,sx:admSx,kits:admKits,support:admSupport,shop:admShop,orders:admOrders,site:admSite,sec:admSec,data:admData}[cur[0]]();
  el.innerHTML=`<aside class="adm-side"><div class="adm-brand">${ic('compass',22)}<div>${esc(S.text.brand)}<small>ศูนย์ผู้ดูแลระบบ</small></div></div><nav class="adm-nav" aria-label="เมนูผู้ดูแล">${nav}</nav>
   <div class="adm-foot"><button class="adm-out" data-act="adm-close">${ic('arrow',18)} กลับไปดูเว็บ</button><button class="adm-out" data-act="adm-logout">${ic('lock',18)} ออกจากระบบ</button></div></aside>
   <main class="adm-main" role="dialog" aria-modal="true" aria-label="ศูนย์ผู้ดูแลระบบ"><header class="adm-h"><h2>${cur[1]}</h2><div class="pbtn"><button class="btn sm ghost" data-act="adm-logout">ออกจากระบบ</button><button class="ib" data-act="adm-close" aria-label="ปิดศูนย์ผู้ดูแล">${ic('x',18)}</button></div></header>
@@ -1705,7 +1708,7 @@ function bindValue(t,b){
  const v=t.type==='checkbox'?t.checked:(t.type==='range'||t.type==='number')?Number(t.value):t.value;
  setP(S,b,v);touch();
  if(b.indexOf('theme.')===0){applyTheme();if(t.type==='range'){const l=t.closest('label');if(l&&l.firstChild)l.firstChild.textContent=l.firstChild.textContent.replace(/\(.*\)/,'('+(b==='theme.scale'?Math.round(v*100)+'%':v+'px')+')');}}
- else if(/^(strands|contacts|sections|shop|sx|support)\./.test(b))raf(render);
+ else if(/^(strands|contacts|sections|shop|sx|support|kits)\./.test(b))raf(render);
 }
 document.addEventListener('input',e=>{
  const t=e.target;if(!(t instanceof Element))return;
@@ -2526,17 +2529,31 @@ function act3Change(t){
 /* ================= สไลด์ 3D + แผนการสอน ================= */
 const KITS=(({"items":[{"id":"s01","band":"a","strand":"rel","grade":"ป.2","title":"ศาสนาของเรา ความดีของเรา","sub":"บอกชื่อศาสนา ศาสดา และคัมภีร์ของศาสนาในสังคมไทยได้","goals":["บอกชื่อศาสนา ศาสดา และคัมภีร์ของศาสนาในสังคมไทยได้","อธิบายว่าศาสนาสอนให้เราทำความดีอย่างไร","ชื่นชมความดีที่ตนเอง ครอบครัว และโรงเรียนทำ"],"min":50,"act":"สมุดบันทึกความดีของฉัน"},{"id":"s02","band":"a","strand":"civ","grade":"ป.2","title":"มารยาทดี กติกาเด่น","sub":"ปฏิบัติตนตามมารยาทไทย เช่น การไหว้ การพูดสุภาพ","goals":["ปฏิบัติตนตามมารยาทไทย เช่น การไหว้ การพูดสุภาพ","ทำตามกติกาห้องเรียนและหน้าที่ของตนเอง","บอกได้ว่าการทำตามกติกาทำให้ทุกคนอยู่ร่วมกันอย่างมีความสุข"],"min":50,"act":"ออกแบบ กติกาห้องเรียนของเรา"},{"id":"s03","band":"a","strand":"eco","grade":"ป.2","title":"รายรับ รายจ่าย และการออม","sub":"บอกที่มาของรายรับและสิ่งที่ต้องจ่าย","goals":["บอกที่มาของรายรับและสิ่งที่ต้องจ่าย","จดบันทึกรายรับ-รายจ่ายของตนเองได้","อธิบายว่าการออมและใช้จ่ายพอเหมาะมีประโยชน์อย่างไร"],"min":50,"act":"บัญชี รายรับ-รายจ่ายของฉัน"},{"id":"s04","band":"a","strand":"his","grade":"ป.2","title":"เส้นเวลาของฉัน","sub":"ใช้คำบอกเวลา เช่น เมื่อวาน วันนี้ พรุ่งนี้ เล่าเรื่องของตนเอง","goals":["ใช้คำบอกเวลา เช่น เมื่อวาน วันนี้ พรุ่งนี้ เล่าเรื่องของตนเอง","เรียงลำดับเหตุการณ์ในชีวิตจากภาพถ่ายหรือหลักฐาน","บอกได้ว่าชุมชนเมื่อก่อนและตอนนี้เปลี่ยนไปอย่างไร"],"min":50,"act":"สร้าง เส้นเวลาของฉัน"},{"id":"s05","band":"a","strand":"geo","grade":"ป.2","title":"จากบ้านไปโรงเรียน","sub":"อ่านแผนผังและบอกตำแหน่งของสิ่งต่าง ๆ ได้","goals":["อ่านแผนผังและบอกตำแหน่งของสิ่งต่าง ๆ ได้","แยกสิ่งแวดล้อมธรรมชาติกับที่มนุษย์สร้าง","เล่าเส้นทางจากบ้านไปโรงเรียนโดยใช้ทิศและคำบอกตำแหน่ง"],"min":50,"act":"วาด แผนผังเส้นทางของฉัน"},{"id":"s06","band":"b","strand":"rel","grade":"ป.5","title":"ศาสนากับการพัฒนาชีวิต","sub":"อธิบายว่าศาสนาเป็นมรดกทางวัฒนธรรมของชาติอย่างไร","goals":["อธิบายว่าศาสนาเป็นมรดกทางวัฒนธรรมของชาติอย่างไร","ยกตัวอย่างแบบอย่างที่ดีจากประวัติศาสนิกชน ชาดก หรือเรื่องเล่า","นำหลักธรรมไปพัฒนาตนเองและดูแลสิ่งแวดล้อม"],"min":50,"act":"แผน ฉันจะทำดี 1 สัปดาห์"},{"id":"s07","band":"b","strand":"civ","grade":"ป.5","title":"สิทธิเด็กและหน้าที่ของฉัน","sub":"บอกสิทธิเด็ก 4 กลุ่มตามอนุสัญญาว่าด้วยสิทธิเด็ก","goals":["บอกสิทธิเด็ก 4 กลุ่มตามอนุสัญญาว่าด้วยสิทธิเด็ก","เสนอวิธีปกป้องตนเองและผู้อื่นจากการถูกละเมิดสิทธิ","ปฏิบัติตนตามหน้าที่ของพลเมืองดี"],"min":50,"act":"สถานการณ์จำลอง ปกป้องสิทธิ"},{"id":"s08","band":"b","strand":"eco","grade":"ป.5","title":"ปัจจัยการผลิต และเศรษฐกิจพอเพียง","sub":"อธิบายปัจจัยการผลิต 4 ประเภท พร้อมยกตัวอย่าง","goals":["อธิบายปัจจัยการผลิต 4 ประเภท พร้อมยกตัวอย่าง","วิเคราะห์ว่าสินค้าของชุมชนใช้ปัจจัยใดบ้าง","ใช้แนวคิด 3 ห่วง 2 เงื่อนไข ในกิจกรรมของครอบครัวหรือโรงเรียน"],"min":50,"act":"ผลิตอะไร ในชุมชนของเรา"},{"id":"s09","band":"b","strand":"his","grade":"ป.5","title":"นักสืบประวัติศาสตร์อยุธยา","sub":"สืบค้นเรื่องราวของท้องถิ่นจากหลักฐานหลายแบบ","goals":["สืบค้นเรื่องราวของท้องถิ่นจากหลักฐานหลายแบบ","แยกข้อเท็จจริงออกจากความคิดเห็นและเรื่องเล่า","รวบรวมข้อมูลและตอบคำถามอย่างมีเหตุผล"],"min":50,"act":"ตรวจ หลักฐานอยุธยา"},{"id":"s10","band":"b","strand":"geo","grade":"ป.5","title":"6 ภาคของไทย ภูมิประเทศกับวิถีชีวิต","sub":"อ่านแผนที่และบอกลักษณะทางกายภาพของ 6 ภาคได้","goals":["อ่านแผนที่และบอกลักษณะทางกายภาพของ 6 ภาคได้","อธิบายว่าธรรมชาติส่งผลต่ออาชีพและวิถีชีวิตอย่างไร","เปรียบเทียบวิถีชีวิตของภาคต่าง ๆ ด้วยเหตุผล"],"min":50,"act":"จับคู่ ภาค · ภูมิประเทศ · อาชีพ"},{"id":"s11","band":"c","strand":"rel","grade":"ม.2","title":"คิดให้แยบคาย แก้ปัญหาให้ได้","sub":"อธิบายวิธีคิดแบบโยนิโสมนสิการและคุณค่าของการพัฒนาจิต","goals":["อธิบายวิธีคิดแบบโยนิโสมนสิการและคุณค่าของการพัฒนาจิต","อธิบายอริยสัจ 4 ได้แก่ ทุกข์ สมุทัย นิโรธ มรรค","ใช้อริยสัจ 4 วิเคราะห์ปัญหาชุมชนและเสนอทางแก้"],"min":50,"act":"วิเคราะห์ปัญหาชุมชนด้วย อริยสัจ 4"},{"id":"s12","band":"c","strand":"civ","grade":"ม.2","title":"กฎหมายใกล้ตัว และการตรากฎหมาย","sub":"อธิบายกระบวนการตรากฎหมายจากร่างจนมีผลบังคับใช้","goals":["อธิบายกระบวนการตรากฎหมายจากร่างจนมีผลบังคับใช้","ยกตัวอย่างกฎหมายใกล้ตัวที่เกี่ยวกับตนเอง ครอบครัว ชุมชน","เสนอแนวปฏิบัติตามกฎหมายในชีวิตประจำวัน"],"min":50,"act":"กฎหมายใกล้ตัว ฉันปฏิบัติอย่างไร"},{"id":"s13","band":"c","strand":"eco","grade":"ม.2","title":"ออม ลงทุน และผลิตแบบพอเพียง","sub":"วิเคราะห์ปัจจัยที่มีผลต่อการออมและการลงทุน","goals":["วิเคราะห์ปัจจัยที่มีผลต่อการออมและการลงทุน","เปรียบเทียบผลตอบแทนและความเสี่ยงของการออมกับการลงทุน","เสนอแนวทางพัฒนาการผลิตในท้องถิ่นตามเศรษฐกิจพอเพียง"],"min":50,"act":"พัฒนา การผลิตในท้องถิ่น"},{"id":"s14","band":"c","strand":"his","grade":"ม.2","title":"นักสืบประวัติศาสตร์","sub":"ประเมินความน่าเชื่อถือของหลักฐานด้วยเกณฑ์ที่เหมาะสม","goals":["ประเมินความน่าเชื่อถือของหลักฐานด้วยเกณฑ์ที่เหมาะสม","แยกข้อเท็จจริงออกจากความคิดเห็น","อธิบายว่าทำไมต้องตีความจากหลักฐานที่เชื่อถือได้"],"min":50,"act":"ประเมิน หลักฐาน 3 ชิ้น"},{"id":"s15","band":"c","strand":"geo","grade":"ม.2","title":"ยุโรป–แอฟริกา: ทำเลและแผนที่","sub":"อ่านมาตราส่วน ทิศ สัญลักษณ์บนแผนที่ได้ถูกต้อง","goals":["อ่านมาตราส่วน ทิศ สัญลักษณ์บนแผนที่ได้ถูกต้อง","วิเคราะห์ลักษณะกายภาพของยุโรปและแอฟริกา","อธิบายว่าปัจจัยกายภาพและสังคมมีผลต่อทำเลอย่างไร"],"min":50,"act":"เลือก ทำเลให้เหมาะ"},{"id":"s16","band":"d","strand":"rel","grade":"ม.4–6","title":"ต่างศาสนา อยู่ร่วมกันอย่างสันติ","sub":"วิเคราะห์ค่านิยมและจริยธรรมที่ทำให้ศาสนิกชนมีความเชื่อและพฤติกรรมต่างกัน","goals":["วิเคราะห์ค่านิยมและจริยธรรมที่ทำให้ศาสนิกชนมีความเชื่อและพฤติกรรมต่างกัน","วิเคราะห์หลักธรรมของศาสนาอื่นที่ส่งเสริมการอยู่ร่วมกัน","เสนอกิจกรรมความร่วมมือของทุกศาสนาเพื่อพัฒนาสังคม"],"min":50,"act":"ออกแบบ กิจกรรมความร่วมมือ ระหว่างศาสนา"},{"id":"s17","band":"d","strand":"civ","grade":"ม.4–6","title":"วัฒนธรรมไทยในโลกาภิวัตน์","sub":"วิเคราะห์โครงสร้างทางสังคมและการขัดเกลาทางสังคม","goals":["วิเคราะห์โครงสร้างทางสังคมและการขัดเกลาทางสังคม","อธิบายสาเหตุและผลของการเปลี่ยนแปลงทางสังคม","ตัดสินใจอนุรักษ์ ปรับปรุง หรือเลือกรับวัฒนธรรมอย่างมีเหตุผล"],"min":50,"act":"สร้าง เกณฑ์ตัดสิน วัฒนธรรม"},{"id":"s18","band":"d","strand":"eco","grade":"ม.4–6","title":"วิเคราะห์เศรษฐกิจชุมชน","sub":"ตระหนักถึงความสำคัญของเศรษฐกิจพอเพียงต่อเศรษฐกิจและสังคม","goals":["ตระหนักถึงความสำคัญของเศรษฐกิจพอเพียงต่อเศรษฐกิจและสังคม","อธิบายหลักการสหกรณ์และบทบาทต่อชุมชน","วิเคราะห์ปัญหาเศรษฐกิจชุมชนและเสนอแนวทางแก้ไข"],"min":50,"act":"วิเคราะห์ ปัญหาเศรษฐกิจชุมชน"},{"id":"s19","band":"d","strand":"his","grade":"ม.4–6","title":"นักประวัติศาสตร์รุ่นใหม่","sub":"ตระหนักถึงความสำคัญของเวลาและยุคสมัย","goals":["ตระหนักถึงความสำคัญของเวลาและยุคสมัย","เทียบศักราชต่าง ๆ และเรียงเหตุการณ์ได้ถูกต้อง","ใช้วิธีการทางประวัติศาสตร์สร้างองค์ความรู้อย่างเป็นระบบ"],"min":50,"act":"เทียบศักราช และเรียงเหตุการณ์"},{"id":"s20","band":"d","strand":"geo","grade":"ม.4–6","title":"ภูมิสารสนเทศ: ซ้อนทับชั้นข้อมูล","sub":"อธิบายองค์ประกอบของภูมิสารสนเทศ (RS, GPS, GIS)","goals":["อธิบายองค์ประกอบของภูมิสารสนเทศ (RS, GPS, GIS)","ใช้การซ้อนทับชั้นข้อมูลวิเคราะห์ทำเลและพื้นที่เสี่ยง","เสนอแนวทางจัดการทรัพยากรเพื่อการพัฒนาที่ยั่งยืน"],"min":50,"act":"ซ้อนข้อมูล เลือกทำเลโรงพยาบาล"}]}).items)||[];
 const kitById=id=>KITS.find(k=>k.id===id);
-const kitSibs=b=>KITS.filter(k=>k.band===b);
+function kitInit(){
+ S.kits=S.kits&&typeof S.kits==='object'?S.kits:{};S.kits.folder=S.kits.folder||'';
+ S.kits.links=S.kits.links&&typeof S.kits.links==='object'?S.kits.links:{};
+ KITS.forEach(k=>{S.kits.links[k.id]=Object.assign({on:true,title:'',sub:'',sp:'',sx:'',pp:'',pd:''},S.kits.links[k.id]||{});});
+}
+const kitL=id=>(S.kits&&S.kits.links&&S.kits.links[id])||{};
+const kitT=k=>(kitL(k.id).title||'').trim()||k.title;
+const kitS=k=>(kitL(k.id).sub||'').trim()||k.sub;
+const kitSibs=b=>KITS.filter(k=>k.band===b&&kitL(k.id).on!==false);
+const kitHttps=u=>/^https:\/\//i.test((u||'').trim());
+function kitLink(k,kind,label,cls){
+ const f={sp:k.id+'-slides.pdf',sx:k.id+'-slides.pptx',pp:k.id+'-plan.pdf',pd:k.id+'-plan.docx'}[kind],u=(kitL(k.id)[kind]||'').trim();
+ if(kitHttps(u))return `<a class="btn ${cls||'sm ghost'}" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${ic('link',15)} ${label}</a>`;
+ return sxPdfLink(f,label,cls);
+}
 const kitImg=(k,n)=>`background-image:url('${esc(sxu('kit-'+k.id+'-slides.webp'))}');background-position:0 ${n*20}%`;
 const kitPlanImg=(k,p)=>`background-image:url('${esc(sxu('kit-'+k.id+'-plan.webp'))}');background-position:${p?100:0}% 0`;
 function kitCard(k){
  const s=strandOf(k.strand);
  return `<article class="kc" style="--c:${esc(s.color)}">
-  <button class="kc-th" data-act="k-open" data-id="${k.id}" aria-label="ดูสไลด์และแผนการสอน ${esc(k.title)}"><span class="kc-img" style="${kitImg(k,0)}"></span><span class="kc-badge">3D · 6 สไลด์</span></button>
+  <button class="kc-th" data-act="k-open" data-id="${k.id}" aria-label="ดูสไลด์และแผนการสอน ${esc(kitT(k))}"><span class="kc-img" style="${kitImg(k,0)}"></span><span class="kc-badge">3D · 6 สไลด์</span></button>
   <div class="kc-b"><div class="tags"><span class="tag solid">${esc(k.grade)}</span><span class="tag">${esc(s.short)}</span></div>
-   <h3>${esc(k.title)}</h3><p class="sxc-sub">${esc(k.sub)}</p>
+   <h3>${esc(kitT(k))}</h3><p class="sxc-sub">${esc(kitS(k))}</p>
    <p class="sxc-m">${ic('clock',14)} ${+k.min||50} นาที · แผนการสอน 2 หน้า</p>
-   <div class="sxc-a"><button class="btn sm pri" data-act="k-open" data-id="${k.id}">ดูสไลด์และแผน</button>${S.sx.allowPdf?sxPdfLink(k.id+'-slides.pdf','สไลด์ PDF'):''}</div></div></article>`;
+   <div class="sxc-a"><button class="btn sm pri" data-act="k-open" data-id="${k.id}">ดูสไลด์และแผน</button>${S.sx.allowPdf?kitLink(k,'sp','สไลด์ PDF'):''}</div></div></article>`;
 }
 function kitBody(){
  const b=sxBand(ui.kBand),its=kitSibs(b.id);
@@ -2549,7 +2566,8 @@ function kitsHTML(){
  if(!ui.kBand||!S.sx.bands.some(b=>b.id===ui.kBand))ui.kBand=S.sx.bands[0].id;
  const tabs=S.sx.bands.map(b=>`<button type="button" role="tab" class="sx-tab" data-act="k-band" data-b="${b.id}" aria-selected="${b.id===ui.kBand}"><b>${esc(b.range)}</b><small>${esc(b.tag)}</small></button>`).join('');
  const chips=['20 ชุด ครบ 5 สาระ ทุกระดับชั้น','สไลด์ 6 หน้า ดีไซน์อินโฟกราฟิก 3 มิติ','ไฟล์ PowerPoint แก้ไขข้อความได้','แผนการสอน 50 นาที PDF และ Word'].map(t=>`<li>${ic('check',14)} ${t}</li>`).join('');
- return `<section id="kits" class="sec"><div class="wrap">${secHead('k')}<ul class="k-chips">${chips}</ul><div class="sx-tabs" role="tablist" aria-label="ระดับชั้น">${tabs}</div><div id="k-body">${kitBody()}</div><p class="sx-note">ตัวอย่างสไลด์และแผนการสอนทั้ง 20 ชุดดาวน์โหลดได้ฟรี ตัวชี้วัดเป็นการสรุปความ ควรตรวจกับหลักสูตรแกนกลางฯ ฉบับทางการก่อนใช้ประเมินผล ไฟล์ PowerPoint ใช้ฟอนต์ Sarabun, Prompt และ Mali (ฟรีจาก Google Fonts) ภาพกราฟิก 3 มิติเป็นรูปภาพ ส่วนข้อความแก้ไขได้</p></div></section>`;
+ const fol=kitHttps(S.kits&&S.kits.folder)?`<p class="k-fol"><a class="btn sm" href="${esc(S.kits.folder.trim())}" target="_blank" rel="noopener noreferrer">${ic('link',15)} เปิดโฟลเดอร์ไฟล์ทั้งหมดใน Google Drive</a></p>`:'';
+ return `<section id="kits" class="sec"><div class="wrap">${secHead('k')}<ul class="k-chips">${chips}</ul>${fol}<div class="sx-tabs" role="tablist" aria-label="ระดับชั้น">${tabs}</div><div id="k-body">${kitBody()}</div><p class="sx-note">ตัวอย่างสไลด์และแผนการสอนทั้ง 20 ชุดดาวน์โหลดได้ฟรี ตัวชี้วัดเป็นการสรุปความ ควรตรวจกับหลักสูตรแกนกลางฯ ฉบับทางการก่อนใช้ประเมินผล ไฟล์ PowerPoint ใช้ฟอนต์ Sarabun, Prompt และ Mali (ฟรีจาก Google Fonts) ภาพกราฟิก 3 มิติเป็นรูปภาพ ส่วนข้อความแก้ไขได้</p></div></section>`;
 }
 function kitRefresh(){
  const b=$('#k-body');if(b)b.innerHTML=kitBody();
@@ -2560,16 +2578,16 @@ function kitViewHTML(){
  const allow=!!S.sx.allowPdf;
  const seg=`<div class="seg" role="group" aria-label="เลือกดู"><button data-act="k-tab" data-t="s" aria-pressed="${slides}">สไลด์ 3D</button><button data-act="k-tab" data-t="p" aria-pressed="${!slides}">แผนการสอน</button></div>`;
  const main=slides?
-  `<div class="kv-stage" id="kv-stage" role="img" aria-label="สไลด์ที่ ${v.n+1} จาก 6 ของ ${esc(k.title)}" style="${kitImg(k,v.n)}"></div>
+  `<div class="kv-stage" id="kv-stage" role="img" aria-label="สไลด์ที่ ${v.n+1} จาก 6 ของ ${esc(kitT(k))}" style="${kitImg(k,v.n)}"></div>
    <div class="kv-ctl"><button class="ib" data-act="k-sl" data-d="-1" aria-label="สไลด์ก่อนหน้า">${ic('arrow',16).replace('<svg','<svg style="transform:scaleX(-1)"')}</button><span id="kv-cnt">${v.n+1} / 6</span><button class="ib" data-act="k-sl" data-d="1" aria-label="สไลด์ถัดไป">${ic('arrow',16)}</button></div>
    <div class="kv-strip">${[0,1,2,3,4,5].map(n=>`<button class="kv-t" data-act="k-go" data-n="${n}" aria-label="ไปสไลด์ที่ ${n+1}" aria-pressed="${n===v.n}" style="${kitImg(k,n)}"></button>`).join('')}</div>`:
   `<div class="kv-plan"><div class="kv-pp" role="img" aria-label="แผนการสอน หน้า 1" style="${kitPlanImg(k,0)}"></div><div class="kv-pp" role="img" aria-label="แผนการสอน หน้า 2" style="${kitPlanImg(k,1)}"></div></div>`;
  const nav=sib.length>1?`<div class="sxv-nav"><button class="ib" data-act="k-step" data-d="-1" aria-label="ชุดก่อนหน้า">${ic('arrow',16).replace('<svg','<svg style="transform:scaleX(-1)"')}</button><span>${pos+1}/${sib.length}</span><button class="ib" data-act="k-step" data-d="1" aria-label="ชุดถัดไป">${ic('arrow',16)}</button></div>`:'';
- const dls=allow?`<div class="kv-dl"><div><b>สไลด์</b>${sxPdfLink(k.id+'-slides.pptx','PowerPoint (แก้ไขได้)','sm pri')}${sxPdfLink(k.id+'-slides.pdf','PDF','sm')}</div><div><b>แผนการสอน</b>${sxPdfLink(k.id+'-plan.pdf','PDF','sm pri')}${sxPdfLink(k.id+'-plan.docx','Word','sm')}</div></div>`:'<p class="mini muted">ผู้ดูแลปิดการดาวน์โหลดตัวอย่างไว้ ดูภาพตัวอย่างได้ตามปกติ</p>';
+ const dls=allow?`<div class="kv-dl"><div><b>สไลด์</b>${kitLink(k,'sx','PowerPoint (แก้ไขได้)','sm pri')}${kitLink(k,'sp','PDF','sm')}</div><div><b>แผนการสอน</b>${kitLink(k,'pp','PDF','sm pri')}${kitLink(k,'pd','Word','sm')}</div></div>`:'<p class="mini muted">ผู้ดูแลปิดการดาวน์โหลดตัวอย่างไว้ ดูภาพตัวอย่างได้ตามปกติ</p>';
  return `${xBtn}<div class="kv ${slides?'kv-s':'kv-p'}" style="--c:${esc(s.color)}">
   <div class="kv-main">${main}</div>
   <div class="kv-side"><div class="tags"><span class="tag solid">${esc(k.grade)}</span><span class="tag">${esc(s.short)}</span></div>
-   <h2 class="md-h" style="margin:0;padding-right:2.5rem">${esc(k.title)}</h2>${seg}
+   <h2 class="md-h" style="margin:0;padding-right:2.5rem">${esc(kitT(k))}</h2>${seg}
    <div class="kv-goals"><h4>จุดประสงค์การเรียนรู้</h4><ol>${k.goals.map(g=>`<li>${esc(g)}</li>`).join('')}</ol></div>
    <p class="mini muted">${ic('clock',14)} คาบเรียน ${+k.min||50} นาที · กิจกรรมหลัก: ${esc(k.act)}</p>
    ${dls}<div class="sxv-a">${nav}</div>
@@ -2603,6 +2621,21 @@ document.addEventListener('keydown',e=>{
  if(e.key==='ArrowRight'){kitSlide(ui.kView.n+1);e.preventDefault();}
  else if(e.key==='ArrowLeft'){kitSlide(ui.kView.n-1);e.preventDefault();}
 });
+
+function admKits(){
+ const fol=`<section class="adm-grp"><h3>โฟลเดอร์ Google Drive รวม</h3><label class="fl" for="a-kf">ลิงก์โฟลเดอร์ (ไม่บังคับ)<input id="a-kf" type="url" data-bind="kits.folder" value="${esc(S.kits.folder)}" placeholder="https://drive.google.com/drive/folders/..."></label><p class="mini muted">มีลิงก์แล้วจะขึ้นปุ่ม "เปิดโฟลเดอร์ไฟล์ทั้งหมดใน Google Drive" ในส่วนสไลด์ &amp; แผน ก่อนใส่ ให้ตั้งสิทธิ์โฟลเดอร์ใน Drive เป็น "ทุกคนที่มีลิงก์ ดูได้ (Viewer)" ถ้าเป็น "แก้ไขได้" ผู้เข้าชมจะลบหรือทับไฟล์ได้</p></section>`;
+ const groups=S.sx.bands.map(b=>{
+  const rows=KITS.filter(k=>k.band===b.id).map(k=>{
+   const l=S.kits.links[k.id],s=strandOf(k.strand),p='kits.links.'+k.id;
+   const f=(key,lab)=>`<label class="fl"><span class="mini">${lab}${l[key]&&!kitHttps(l[key])?' <b class="err">ต้องขึ้นต้นด้วย https://</b>':''}</span><input type="url" data-bind="${p}.${key}" value="${esc(l[key])}" placeholder="ว่าง = ใช้ไฟล์ในเว็บ" aria-label="${lab} ${k.id}"></label>`;
+   return `<div class="adm-row"><label class="adm-sw"><input type="checkbox" data-bind="${p}.on"${l.on!==false?' checked':''}><span>แสดง</span></label><span class="tag" style="--c:${esc(s.color)}">${esc(s.short)}</span>
+    <div class="adm-f"><b>${k.id} · ${esc(k.grade)}</b><input type="text" data-bind="${p}.title" value="${esc(l.title)}" placeholder="${esc(k.title)}" aria-label="ชื่อชุด ${k.id}"><input type="text" data-bind="${p}.sub" value="${esc(l.sub)}" placeholder="${esc(k.sub)}" aria-label="คำอธิบาย ${k.id}">
+    <div class="adm-two">${f('sx','ลิงก์ PowerPoint')}${f('sp','ลิงก์สไลด์ PDF')}</div><div class="adm-two">${f('pd','ลิงก์แผน Word')}${f('pp','ลิงก์แผน PDF')}</div></div></div>`;
+  }).join('');
+  return `<section class="adm-grp"><h3>${esc(b.range)} · ${esc(b.tag)}</h3>${rows}</section>`;
+ }).join('');
+ return fol+groups+`<p class="mini muted">ช่องลิงก์ที่ว่างจะใช้ไฟล์ที่มากับเว็บ ใส่ลิงก์ Google Drive (แบบ "ทุกคนที่มีลิงก์ ดูได้") แล้วปุ่มจะเปิดไฟล์ใน Drive ซึ่งดูตัวอย่าง PDF, PowerPoint และ Word ได้ในตัว ชื่อและคำอธิบายที่เว้นว่างจะใช้ค่าเดิม ต้องกด "บันทึกขึ้นเพจ" หลังแก้ไข</p>`;
+}
 
 /* ================= boot ================= */
 const SHELL=`<div id="app"></div><div id="overlay"><div id="bar"></div><aside id="panel" class="panel" hidden aria-label="แผงปรับแต่งเพจ"></aside><div id="adm" class="adm" hidden></div><div id="modal"></div><div id="toast" class="toast" role="status" aria-live="polite"></div><input id="up-sample" type="file" accept="image/*" data-upload="sample" hidden></div>`;
